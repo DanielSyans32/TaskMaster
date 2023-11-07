@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>Inicio - Taskmaster</title>
+        <link rel="icon" href="Images/Logo blanco.png" type="image/x-icon" >
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            /* Estilo para el header */
+            header {
+                background: linear-gradient(to right, #002aff, #b607cddc);
+                color: #fff;
+                padding: 20px;
+                display: flex; /* Utilizamos Flexbox para distribuir los elementos */
+                justify-content: space-between; /* Espacio entre los elementos */
+                align-items: center; /* Centrar verticalmente los elementos */
+            }
+
+            /* Estilo para los bloques de información */
+            .info-block {
+                margin: 10px;
+            }
+
+            /* Estilo para los botones de texto (bloques) */
+            .text-button {
+                margin: 10px;
+                cursor: pointer;
+            }
+
+            /* Estilo para el botón */
+            .action-button {
+                background-color: #007bff;
+                color: #fff;
+                padding: 10px 20px;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+            nav {
+                float: left;
+                width: 30%;
+                height: 470px; /* only for demonstration, should be removed */
+                background: white;
+                padding: 50px;
+            }
+
+            nav img {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 10px auto;
+            }
+
+            article {
+                float: left;
+                padding: 60px;
+                width: 100%;
+                background-color: white;
+                height: 470px;
+                width: 70%;
+            }
+
+            /* Clear floats after the columns */
+            section::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+
+            /* Estilo para el footer */
+            footer {
+                background-color: #4863ea;
+                color: #fff;
+                padding: 5px;
+                text-align: center;
+                font-size: 10px;
+            }
+
+            /* Estilo para los bloques horizontales */
+            .footer-blocks {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap; /* Permite que los bloques se envuelvan en filas en pantallas pequeñas */
+            }
+
+            .footer-block {
+                flex-basis: calc(33.33% - 20px); /* Ancho de cada bloque (33.33% con margen entre ellos) */
+                margin: 10px; /* Margen entre los bloques */
+                text-align: left;
+            }
+
+            /* Estilo adicional para los bloques de información */
+            .footer-block h3 {
+                font-size: 18px;
+            }
+
+            .footer-block p {
+                font-size: 14px;
+                margin: 10px 0;
+            }
+
+            /* Estilo para el bloque de información */
+            .info-block {
+                margin-bottom: 20px;
+            }
+
+            /* Estilo para las imágenes de redes sociales */
+            .social-icons {
+                display: flex;
+                justify-content: center;
+            }
+
+            .social-icons a {
+                margin: 0 10px;
+                text-decoration: none;
+                color: #fff;
+            }
+
+            /* Estilo para las imágenes */
+            .social-icons img {
+                width: 20px;
+                height: 20px;
+            }
+
+            /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+            @media (max-width: 600px) {
+                nav, article {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header>
+            <!-- Imagen en la parte izquierda -->
+            <img src="Images/Alargado blanco.png" alt="Taskmaster" width="200">
+
+            <!-- Bloques de texto como botones -->
+            <div class="text-button" onclick="cambiarContenido('¿Quienes Somos?', 'Images/QuienesSomos.png')">¿Quienes somos?</div>
+            <div class="text-button" onclick="cambiarContenido('Novedades', 'Images/novedades.png')">Novedades</div>
+            <div class="text-button" onclick="cambiarContenido('Comunidad', 'Images/comunidad.png')">Comunidad</div>
+
+            <!-- Botón en la parte derecha -->
+            <a href="#" class="action-button">Registrate ahora</a>
+        </header>
+
+        <section>
+            <article id="contenido">
+                <h1>¡Bienvenido!</h1>
+                <p>mensaje de bienvenida.</p>
+            </article>
+
+            <nav id="imagen">
+                <img src="Images/Bienvenida.png" alt="Imagen 1">
+            </nav>
+        </section>
+
+        <footer>
+            <!-- Bloques de información (horizontalmente) -->
+            <div class="footer-blocks">
+                <!-- Bloque 1 -->
+                <div class="footer-block">
+                    <h3>Contacto</h3>
+                    <p>Dirección: Av Tecnológico #1500, Morelia Michoacán</p>
+                    <p>Teléfono: 4431022680</p>
+                    <p>Email: l21120244@morelia.tecnm.mx</p>
+                </div>
+
+                <!-- Bloque 2 -->
+                <div class="footer-block">
+                    <h3>Redes Sociales</h3>
+                    <p>Síguenos en nuestras redes sociales para estar al tanto de las últimas novedades:</p>
+                    
+                    <div class="social-icons">
+                        <a href="#"><img src="Images/facebook.png" alt="Facebook"></a>
+                        <a href="#"><img src="Images/x.png" alt="X"></a>
+                        <a href="#"><img src="Images/instagram.png" alt="Instagram"></a>
+                        <a href="#"><img src="Images/discord.png" alt="Discord"></a>
+                        <a href="#"><img src="Images/youtube.png" alt="Youtube"></a>
+                    </div>
+                </div>
+
+                <!-- Bloque 3 -->
+                <div class="footer-block">
+                    <h3>Enlaces Útiles</h3>
+                    <ul>
+                        <li><a href="#">Términos de servicio</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                        <li><a href="#">Preguntas frecuentes</a></li>
+                    </ul>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            function cambiarContenido(titulo, imagen) {
+                // Obtener una referencia al elemento de contenido y la imagen
+                var contenidoElement = document.getElementById('contenido');
+                var imagenElement = document.getElementById('imagen');
+        
+                // Verificar el título para determinar qué contenido mostrar
+                if (titulo === '¿Quienes Somos?') {
+                    contenidoElement.innerHTML = `
+                        <h1>${titulo}</h1>
+                        <p>Este es el nuevo contenido para la sección de ¿Quienes Somos?. Puedes agregar aquí la información que desees mostrar.</p>
+                    `;
+                    imagenElement.innerHTML = `<img src="${imagen}" alt="${titulo}">`;
+                } else if (titulo === 'Novedades') {
+                    contenidoElement.innerHTML = `
+                        <h1>${titulo}</h1>
+                        <p>Este es el nuevo contenido para la sección de Novedades. Puedes agregar aquí las últimas novedades y noticias.</p>
+                    `;
+                    imagenElement.innerHTML = `<img src="${imagen}" alt="${titulo}">`;
+                } else if (titulo === 'Comunidad') {
+                    contenidoElement.innerHTML = `
+                        <h1>${titulo}</h1>
+                        <p>Este es el nuevo contenido para la sección de Comunidad. Aquí puedes destacar la comunidad y las interacciones con tus usuarios.</p>
+                    `;
+                    imagenElement.innerHTML = `<img src="${imagen}" alt="${titulo}">`;
+                }
+            }
+        </script>
+    </body>
+</html>

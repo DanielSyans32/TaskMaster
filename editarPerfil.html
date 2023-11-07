@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Editar Información del Perfil</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      background: linear-gradient(to right, #002aff, #b607cddc);
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 70px;
+    }
+
+    .logo {
+      width: 20%;
+      max-width: 300px;
+      height: auto;
+      margin-right: 550px;
+      
+      
+    }
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border-radius: 5px;
+      background-color: #f9f9f9;
+      text-align: center;
+    }
+    .profile-image {
+      display: block;
+      margin: 0 auto;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: #ddd;
+    }
+    label {
+      font-weight: bold;
+      text-align: left;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .save-button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 3px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+    }
+    .back-button {
+  background-color: #002aff;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  border-radius: 10px;
+  margin: 1rem;
+  color: #fff; /* Color de texto en estado normal */
+  transition: background-color 0.3s, color 0.3s; /* Transición de color de fondo y texto */
+}
+
+/* Cambiar los colores al pasar el cursor sobre el botón */
+.back-button:hover {
+  background-color: #007bff; /* Color de fondo al pasar el cursor */
+  color: #fff; /* Color de texto al pasar el cursor */
+}
+
+/* Cambiar los colores cuando se hace clic en el botón */
+.back-button:active {
+  background-color: #0044a0; /* Color de fondo al hacer clic */
+  color: #fff; /* Color de texto al hacer clic */
+}
+    .back-button-image {
+  width: 100px; /* Ajusta el ancho de la imagen */
+  height: px; /* Ajusta la altura de la imagen */
+  margin-right: 5px; /* Ajusta el espaciado a la derecha de la imagen */
+}
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <button class="back-button">
+      <img src="Images/atras.png" alt="Atrás" class="back-button-image"> 
+    </button>
+    
+    <img class="logo" src="Images/Alargado blanco.png" alt="Logo de la página">
+
+  </header>
+
+  <div class="container">
+    <h1>Editar Información del perfil</h1>
+    <img class="profile-image" src="Images/FOTO_PERFIL.PNG" alt="Imagen de Perfil">
+    <form>
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre">
+
+      <label for="correo">Correo:</label>
+      <input type="email" id="correo" name="correo" placeholder="Escribe tu correo">
+
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" name="contrasena" placeholder="Escribe tu contraseña">
+
+      <button class="save-button" type="submit">Guardar Cambios</button>
+    </form>
+  </div>
+</body>
+</html>
