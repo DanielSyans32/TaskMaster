@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,31 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taskmaster</title>
     <style>
-header {
-      background: linear-gradient(to right, #002aff, #b607cddc);
-      color: #fff;
-      padding: 1rem;
-      display: flex;
-      justify-content: space between;
-      align-items: center;
-      height: 20px;
-      width: 1286px;
-    }
-    .logo {
-    width: 400px;
-    margin-right:650px;
+             header {
+    background: linear-gradient(to right, #002aff, #b607cddc);
+    color: #fff;
+    padding: 0 rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 0.5%; /* Ajuste de la altura para que no sea demasiado pequeña */
+    width: 100%; /* Cambio a 100% para que se extienda a lo largo de la pantalla */
 }
+
+
+
+
+
+
+
+
+
+    .logo {
+    width: 25%;
+    margin-right:64%;
+}
+
+
+
+
+
+
 .Recompensa, .usuarioPerfil {
     background-size: contain;
     background-repeat: no-repeat;
-    width: 50px; /* Ajusta el tamaño de la imagen según tus necesidades */
-    height: 50px; /* Ajusta el tamaño de la imagen según tus necesidades */
+    width: 100%; /* Ajusta el tamaño de la imagen según tus necesidades */
+    height: autopx; /* Ajusta el tamaño de la imagen según tus necesidades */
     display: inline-block;
     cursor: pointer;
     text-indent: -9999px;
     border: none;
     background-color: transparent;
-    padding: 0;
+    padding: 2%;
  
 }
 
@@ -45,6 +61,22 @@ header {
     background-color: transparent;
     padding: 0;
  
+}
+.editar_texto,.eliminarSeccion{
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40px; /* Ajusta el tamaño de la imagen según tus necesidades */
+    height: 40px; /* Ajusta el tamaño de la imagen según tus necesidades */
+    display: inline-block;
+    cursor: pointer;
+    text-indent: -9999px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+   /* margin-left: 5px;*/
+
+
+
 }
 .Campana, .Agregar, .AgregarAmigo {
     background-size: contain;
@@ -78,13 +110,16 @@ header {
     background-repeat: no-repeat;
     width: 150px; /* Ancho de la imagen en píxeles */
     height: 40px; /* Alto de la imagen en píxeles */
-    display: inline-block;
+    
     cursor: pointer;
     text-indent: -9999px;
     border: none;
     background-color: transparent;
     padding: 0;
-    margin-top: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 230%;
 }
 .Agregar {
     background-image: url('images/Agregar.png');
@@ -96,11 +131,18 @@ header {
 }
 
 .espacio{
-margin-left: 550px;
+margin-left: 60%
+
 
 }
 .Configuracion {
     background-image: url('images/Barrita_herramienta.png');
+}
+.editar_texto {
+    background-image: url('images/editar_texto.png');
+}
+.eliminarSeccion {
+    background-image: url('images/basura.png');
 }
 .Seccion1 {
     background-image: url('images/secciones.png    ');
@@ -121,50 +163,61 @@ margin-left: 550px;
             margin: 0;
             padding: 0;
         }
+
+
+
+        
         #container {
             display: flex;
             width: 100vw;
             height: 88vh;
         }
         #left-panel {
-            flex: 0;
+            flex: 1;
             background-color: #c4c4c4;
-            padding-left: 0px;
-            padding-right: 0px;
-            border-right: 1px solid #ccc;
+           
+            padding-right: 1%;
+            border-right: 1% solid #ccc;
             flex-direction: column;
             text-align: left;
-            height: 5px;
+            
+            height: auto;
+
         }
         #middle-panel {
-            flex: 0;
+            flex: 7;
             background-color: #fff;
-            padding: 0px;
+            padding: 0%;
             border-right: 1px solid #ccc;
             display: flex;
             flex-direction: column;
-            width: 70%;
-            
+            width: 100%;
+            height: auto;
         }
         #middle-panelProgramacionWeb {
             background: #c4c4c4;
       color: #fff;
       padding: 1rem;
       display: flex;
-      justify-content: space between;
-      align-items: center;
-      height: 5px;
-      width: 850px;
+      justify-content: flex-end;
+    align-items: center;
+      height: 1.5%;
+      width: 100%;
         }
         .textoPanelProgramacion{
             background: #c4c4c4;
             color: #000000;
+            display: flex;
+            justify-content: flex-end; /* Corregido de 'space between' a 'space-between' */
+    align-items: center;
+    margin-right: 15%;
 
 
 
         }
         .TextoListaAmigos{
-            color: #030303;
+            color: #ffffff;
+            margin-right: 25%;
             
 
 
@@ -180,20 +233,26 @@ margin-left: 550px;
         #right-panelRecordatorios{
   background: linear-gradient(to right, #002aff, #b607cddc);
   color: #fff;
+  
   padding: 1rem; /* Ajusta el padding según sea necesario */
   display: flex;
-  justify-content: space-between; /* Corregido */
+  justify-content: flex-end;
   align-items: center;
-  height: 5px; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
-  width: calc(100% - 2rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
-  width: 233px;
+  height:  1.5%; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
+  width: calc(100% - 1rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
+  width: auto;
+  margin-right: 0;
+
+    
 }
+
+
 #right-panelListaAmigos {
     background: linear-gradient(to right, #002aff, #b607cddc);
   color: #fff;
   padding: 1rem; /* Ajusta el padding según sea necesario */
   display: flex;
-  justify-content: space-between; /* Corregido */
+  justify-content: flex-end;
   align-items: center;
   height: 5px; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
   width: calc(100% - 2rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
@@ -209,15 +268,18 @@ margin-left: 550px;
             font-weight: bold;
             background: linear-gradient(to right, #002aff, #b607cddc);
             color: #fff;
-            padding: 10px 20px;
-            margin-bottom: 10px;
+           padding: 7%;
+           width: 100%;
+           height: 1.5%;
+            margin-bottom: 2%;
         }
         .section-Right{
             font-weight: bold;
-            background: linear-gradient(to right, #002aff, #b607cddc);
             color: #fff;
-            padding: 10px 20px;
-            font-size: 14px;
+            margin-right: 10%;
+           
+            
+            
         }
         .Texto {
             font-weight: bold;
@@ -240,19 +302,19 @@ margin-left: 550px;
 }
 #textarea_Recordatorios {
     background: #0ddefa;
-    width: 98%;
+    width: 100%;
     height: 43%;
 }
 #textarea_Lista_Amigos {
     background: #dd67d7;
-    width: 98%;
-    height: 43%;
+    width: 100%;
+    height: 41%;
     
 }
         textarea {
             margin-left: 30px;
             width: 90%;
-            height: 170px;
+            height: 50%;
             background: #cac6c6;
         }
         .escuela {
@@ -294,10 +356,7 @@ margin-left: 550px;
             cursor: pointer;
             margin-left: 20px;
         }
-        button:hover {
-            background: linear-gradient(to right, #002aff, #b607cddc);
-            color: #fff;
-        }
+        
         .button-left {
             background-image: url('images/Redes.PNG');
             background-size: cover;
@@ -326,44 +385,141 @@ margin-left: 550px;
             border: none;
             cursor: pointer;
         }
-        button:hover {
-            background: linear-gradient(to right, #002aff, #b607cddc);
-            color: #fff;
-            border-radius: 10px;
-  transition: background-color 0.3s, color 0.3s; /* Transición de color de fondo y texto */
-        }
-        .button:hover {
-  background-color: #007bff; /* Color de fondo al pasar el cursor */
-  color: #fff; /* Color de texto al pasar el cursor */
-}
+     
+   
 
 /* Cambiar los colores cuando se hace clic en el botón */
-.button:active {
-  background-color: #0044a0; /* Color de fondo al hacer clic */
-  color: #fff; /* Color de texto al hacer clic */
+
+       
+            button:hover, .Recompensa:hover, .usuarioPerfil:hover, .Configuracion:hover, 
+.Seccion1:hover, .Seccion2:hover, .Campana:hover, .Agregar:hover, .AgregarAmigo:hover,
+.AgregarSeccion_Mas_Left_Panel:hover,.editar_texto:hover,.eliminarSeccion:hover
+,.button-left:hover,.button-middle:hover,.button-right:hover{
+    background-color: rgba(226, 7, 116, 0.616); /* Color de fondo morado claro con transparencia */
+    outline: 2px solid rgba(219, 12, 64, 0.5); /* Borde morado claro con transparencia */
+    color: #000; /* Mantén el color del texto igual */
+    transition: background-color 0.3s, outline 0.3s; /* Transición suave */
+    border-radius: 10px;
 }
-    
+        
+        .usuarioPerfil {
+            position: relative;
+            display: inline-block;
+         
+        }
+        #userMenu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1000;
+            right: 0; /* Remueve esta línea si está presente */
+    left: auto;
+     /* Asegúrate de que el menú no sea más ancho que la ventana */
+     max-width: 100%;
+    overflow: hidden; /* Oculta cualquier contenido que sobrepase el menú */
+    min-width: 15%; /* Ajusta esto según la anchura deseada para el menú */
+    /* Otros estilos... */
+        }
+        #userMenu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #userMenu li a {
+            display: block;
+            color: #333;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+        #userMenu li a:hover {
+            background-color: #f5f5f5;
+        }
+        /* ... Other styles ... */
+        /* Style for the section list and add button */
+        #panel-secciones {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Ensure the add button stays at the bottom */
+        #boton-agregar-seccion {
+            order: 2;
+            margin-top: auto;
+        }
+
+        /* Style for the editable section name */
+        .editable-section-name {
+            margin: 5px 0;
+            padding: 10px;
+            background: #f0f0f0;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Hidden input for editing the section name */
+        .edit-section-name {
+            display: none;
+            margin-bottom: 5px;
+        }
+
+        .editable-section-name.selected {
+  background-color: #e0e0e0; /* Color de fondo para secciones seleccionadas */
+  /* Otros estilos si es necesario */
+}
+
     </style>
 </head>
 <body>
     <header>
         <img class="logo" src="Images/Alargado blanco.png" alt="Logo de la página">
         <a href="#" class="Recompensa"></a>
-        <a href="#" class="usuarioPerfil"></a>
+        <div class="usuarioPerfil" onclick="toggleUserMenu()">
+            <!-- Icon or image for user profile -->
+        </div>
+        <div id="userMenu">
+            <ul>
+                <li><a href="informacionPerfil.html">Perfil</a></li>
+                <li><a href="editarPerfil.html">Configuración de perfil</a></li>
+                <li><a href="javascript:void(0);" onclick="confirmarCierreSesion()">Cerrar sesión</a></li>
+            </ul>
+        </div>
     </header>
+
     <div id="container">
+
+
         <div id="left-panel">
-            <form>
-                <div class="section-Left">Secciones</div>
-                <button class="escuela">Escuela</button>
-                <button>Tareas del hogar</button>
-                <button>Tareas grupales</button>
-                <a href="#" class="AgregarSeccion_Mas_Left_Panel"></a>
+            <form id="panel-secciones">
+                <div id="existing-sections">
+                    <div id="panel-secciones" class="section-Left">Secciones</div>
+                    <!-- Existing sections will be here -->
+                    <!--  
+                         <div class="editable-section-name" onclick="editSectionName(this)">Escuela</div>   
+                    
+                    <a href="#" class="editar_texto"></a>
+                    <a href="#" class="eliminarSeccion"></a>*/
+                    --> 
+                    
+                    <!-- More sections can be added dynamically here -->
+                </div>
+                
+                <button id="boton-agregar-seccion" type ="button" class="AgregarSeccion_Mas_Left_Panel" onclick="agregarSeccion()">
+                    Agregar sección
+                    </button>
+
+                    
             </form>
         </div>
+
+
         <div id="middle-panel">
             <div id="middle-panelProgramacionWeb">
-                <div class="textoPanelProgramacion">Escuela</div>
+                <div class="textoPanelProgramacion">Tareas del hogar</div>
                 <div class="espacio"></div>
                 <a href="#" class="Configuracion"></a>
         <a href="#" class="Seccion1"></a>
@@ -375,8 +531,7 @@ margin-left: 550px;
             </div>
             
             <div class="button-container">
-                <button class="button-left"></button>
-                <button class="button-middle"></button>
+               
                 <button class="button-right"></button>
             </div>
             
@@ -404,5 +559,242 @@ margin-left: 550px;
             <textarea id="textarea_Lista_Amigos" name="amigos" class="right-textarea"></textarea>
         </div>
     </div>
+    
+
+    <script>
+
+function toggleUserMenu() {
+
+            var userMenu = document.getElementById('userMenu');
+            if (userMenu.style.display === 'block') {
+                userMenu.style.display = 'none';
+            } else {
+                userMenu.style.display = 'block';
+                var userProfile = document.querySelector('.usuarioPerfil');
+                var rect = userProfile.getBoundingClientRect();
+                userMenu.style.top = rect.bottom + 'px';
+                userMenu.style.left = rect.left + 'px';
+            }
+
+            var userMenu = document.getElementById('userMenu');
+    var userProfile = document.querySelector('.usuarioPerfil');
+    var rect = userProfile.getBoundingClientRect();
+
+    // Espera hasta que el menú sea visible para obtener su ancho
+    userMenu.classList.toggle('user-menu-hidden');
+    var menuWidth = userMenu.offsetWidth;
+
+    // Calcular la posición izquierda
+    var leftOffset = rect.right - menuWidth; // Alinea el borde derecho del menú con el borde derecho del botón
+
+    // Asegúrate de que el menú no se sale de la pantalla a la izquierda
+    leftOffset = Math.max(leftOffset, 10); // 10px de margen de la ventana izquierda
+
+    userMenu.style.left = `${leftOffset}px`;
+    userMenu.style.top = `${rect.bottom + window.scrollY}px`;
+    // Si el menú ya se había ocultado, alterna la clase de nuevo
+    if (userMenu.style.display === 'none') {
+        userMenu.classList.toggle('user-menu-hidden');
+    }
+
+    function posicionaMenu() {
+    var userMenu = document.getElementById('userMenu');
+    var userProfile = document.querySelector('.usuarioPerfil');
+    if (userProfile) {
+        var rect = userProfile.getBoundingClientRect();
+        var leftOffset = rect.left - userMenu.offsetWidth + userProfile.offsetWidth;
+        // Asegúrate de que el menú no se sale de la pantalla a la izquierda
+        if (leftOffset < 0) {
+            leftOffset = 0; // Ajusta para que no se salga de la pantalla
+        }
+        userMenu.style.left = leftOffset + 'px';
+        userMenu.style.top = rect.bottom + 'px';
+    }
+}
+
+// Llama a posicionaMenu() cuando se carga la página y cuando se cambia el tamaño de la ventana
+window.onload = posicionaMenu;
+window.onresize = posicionaMenu;
+
+// Función para alternar la visibilidad del menú
+function toggleUserMenu() {
+    var userMenu = document.getElementById('userMenu');
+    userMenu.classList.toggle('user-menu-hidden');
+    posicionaMenu(); // Asegúrate de que el menú esté correctamente posicionado
+}
+
+
+        }
+        function cerrarSesion() {
+            
+        }
+
+        function confirmarCierreSesion() {
+    var confirmacion = confirm("¿Estás seguro que deseas cerrar sesión?");
+    if (confirmacion) {
+        // Aquí puedes añadir la lógica de cierre de sesión, como borrar cookies o tokens de sesión.
+        window.location.href = 'login.html'; // Redirige a la página de inicio de sesión.
+    }
+}
+
+
+
+function agregarSeccion() {
+    const nombreSeccion = prompt("Nombre de la nueva sección:");
+    if(nombreSeccion) {
+        fetch('http://localhost:3000/crearSeccion', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombre: nombreSeccion, id_usuario: localStorage.getItem('userId') }) // Reemplaza 'ID_DEL_USUARIO' con el ID real del usuario
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.message) {
+                alert(data.message);
+                
+                const seccionesContenedor = document.getElementById('existing-sections');
+                const nuevaSeccion = document.createElement('div');
+                nuevaSeccion.className = 'editable-section-name';
+                nuevaSeccion.textContent = nombreSeccion;
+                nuevaSeccion.onclick = () => editSectionName(nuevaSeccion);
+                seccionesContenedor.appendChild(nuevaSeccion);
+                location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error al crear la sección:', error);
+        });
+    }
+}
+
+function cargarSeccionesUsuario() {
+    const idUsuario = localStorage.getItem('userId');
+    if (idUsuario) {
+        fetch(`http://localhost:3000/obtenerSecciones?id_usuario=${idUsuario}`)
+            .then(response => response.json())
+            .then(data => {
+                const seccionesContenedor = document.getElementById('existing-sections');
+                //seccionesContenedor.innerHTML = ''; // Limpiar el contenedor
+                data.secciones.forEach(seccion => {
+                    const seccionDiv = document.createElement('div');
+                    seccionDiv.className = 'section-container';
+
+                    const nombreSeccion = document.createElement('div');
+                    nombreSeccion.className = 'editable-section-name';
+                    nombreSeccion.setAttribute('data-id', seccion.id);
+                    nombreSeccion.textContent = seccion.name;
+                    
+                    // Botón de editar
+                    const editBtn = document.createElement('a');
+                    editBtn.className = 'editar_texto';
+                    editBtn.onclick = function(){
+                        // Función para hacer editable el nombre de la sección
+                        editSectionName(nombreSeccion);
+                        
+                    };
+
+                    // Botón de eliminar
+                    const deleteBtn = document.createElement('a');
+                    deleteBtn.className = 'eliminarSeccion';
+                    deleteBtn.onclick = function() {
+                        deleteSection(seccion.id);
+                    };
+
+                    seccionDiv.appendChild(nombreSeccion);
+                    seccionDiv.appendChild(editBtn);
+                    seccionDiv.appendChild(deleteBtn);
+
+                    seccionesContenedor.appendChild(seccionDiv);
+                });
+            })
+            .catch(error => {
+                console.error('Error al cargar secciones:', error);
+            });
+    }
+}
+
+//Seleccionar las secciones
+function selectSection(element) {
+  // Remover la clase 'selected' de otras secciones
+  document.querySelectorAll('.editable-section-name').forEach(el => el.classList.remove('selected'));
+  // Añadir la clase 'selected' a la sección clickeada
+  element.classList.add('selected');
+
+  // Carga detalles de la sección o cualquier otra lógica que necesites
+  // Por ejemplo, puedes cargar subsecciones aquí
+}
+
+
+
+
+//Actualizar nombre de secciones
+function updateSectionName(nombreSeccion) {
+    const sectionId = nombreSeccion.getAttribute('data-id');
+    const updatedName = nombreSeccion.textContent.trim();
+
+    fetch(`http://localhost:3000/actualizarNombreSeccion`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ id: sectionId, name: updatedName })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.success) {
+            alert('Nombre de la sección actualizado correctamente');
+            location.reload();
+        } else {
+            alert('Error al actualizar el nombre de la sección');
+        }
+    })
+    .catch(error => {
+        console.error('Error al actualizar el nombre de la sección:', error);
+    });
+}
+
+//Eliminar secciones
+function deleteSection(sectionId) {
+  if (confirm('¿Estás seguro de que quieres eliminar esta sección?')) {
+    fetch(`http://localhost:3000/eliminarSeccion/${sectionId}`, {
+      method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert(data.message); // Mensaje de éxito
+      document.querySelector(`.section-container[data-id="${sectionId}"]`).remove();
+     
+
+    })
+    .catch(error => {
+      console.error('Error al eliminar la sección:', error);
+      location.reload();
+    });
+  }
+}
+
+
+
+
+
+// funcion para editar las secciones
+function editSectionName(nombreSeccion) {
+    nombreSeccion.contentEditable = true;
+    nombreSeccion.focus();
+    nombreSeccion.onblur = function() {
+        updateSectionName(nombreSeccion);
+        
+    };
+}
+
+      
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+    cargarSeccionesUsuario();
+});
+
+    </script>
 </body>
 </html>

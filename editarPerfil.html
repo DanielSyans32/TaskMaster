@@ -101,7 +101,8 @@
 
   <header>
     <button class="back-button">
-      <img src="Images/atras.png" alt="Atrás" class="back-button-image"> 
+      <img src="Images/atras.png" alt="Atrás" class="back-button-image" onclick="window.location.href='seccion2.html';">
+
     </button>
     
     <img class="logo" src="Images/Alargado blanco.png" alt="Logo de la página">
@@ -121,8 +122,24 @@
       <label for="contrasena">Contraseña:</label>
       <input type="password" id="contrasena" name="contrasena" placeholder="Escribe tu contraseña">
 
-      <button class="save-button" type="submit">Guardar Cambios</button>
+      <button class="save-button" onclick="guardarCambios()">Guardar cambios</button>
+
     </form>
   </div>
+<script>
+
+
+function guardarCambios() {
+
+    alert('Los datos fueron guardados correctamente');
+}
+
+
+
+</script>
+  
+
+
+
 </body>
 </html>

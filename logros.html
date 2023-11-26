@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logros de MiPáginaWeb.com</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="navigation.css">
+    <style>
+        /* Estilo de los contenedores de logros */
+        .logro-container {
+            margin-bottom: 20px; /* Espacio entre los contenedores de logros */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <nav>
+            <ul>
+                <li class="group" id="software-group">
+                    <div class="group-icon">
+                        <img src="Images/Maily.jpg" alt="Icono de Grupo de Software">
+                        <span class="group-name">Grupo de Software</span>
+                    </div>
+                    <a href="#software-group"></a>
+                </li>
+                <li class="group" id="web-programming-group">
+                    <div class="group-icon">
+                        <img src="Images/lokite.jpg" alt="Icono de Grupo de Programación Web">
+                        <span class="group-name">Grupo de Programación Web</span>
+                    </div>
+                    <a href="#web-programming-group"></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <header class="header-background">
+        <div class="header-content">
+            <img src="Images/Logo blanco.png" alt="Imagen de Taskmaster">
+            <h1>Taskmaster</h1>
+        </div>
+    </header>
+
+    <main>
+        <section id="software-group-achievements">
+            <h2>Logros de Grupo de Software</h2>
+            <!-- Logro 1 -->
+            <div class="logro-container">
+                <div class="achievement" id="logro-1">
+                    <div class="achievement-icon">
+                        <img src="Images/Candado.png" alt="Logro Completado">
+                    </div>
+                    <p>Primer proyecto exitoso en Java</p>
+                    <button class="ver-detalles" onclick="mostrarDetalles('detalles-logro-1')">Ver detalles</button>
+                    <div class="detalles" id="detalles-logro-1">
+                        <button class="cerrar-detalles" onclick="cerrarDetalles('detalles-logro-1')">X</button>
+                        <h3>Detalles del logro</h3>
+                        <p>Nombre de usuario: Usuario1</p>
+                        <p>Fecha hecha: 01/11/2023</p>
+                        <p>Año: 2023</p>
+                        <p>Nombre del logro: Primer proyecto exitoso en Java</p>
+                        <p>Descripción: Logro desbloqueado al completar con éxito el primer proyecto en Java.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Otros logros del Grupo de Software se agregan aquí -->
+        </section>
+
+        <section id="web-programming-group-achievements">
+            <h2>Logros de Grupo de Programación Web</h2>
+            <!-- Logro 2 -->
+            <div class="logro-container">
+                <div class="achievement" id="logro-2">
+                    <div class="achievement-icon">
+                        <img src="Images/yop.jpg" alt="Logro Completado">
+                    </div>
+                    <p>Sobreviviste al viernes</p>
+                    <button class="ver-detalles" onclick="mostrarDetalles('detalles-logro-2')">Ver detalles</button>
+                    <div class="detalles" id="detalles-logro-2">
+                        <button class="cerrar-detalles" onclick="cerrarDetalles('detalles-logro-2')">X</button>
+                        <h3>Detalles del logro</h3>
+                        <p>Nombre de usuario: Usuario2</p>
+                        <p>Fecha hecha: 02/11/2023</p>
+                        <p>Año: 2023</p>
+                        <p>Nombre del logro: Sobreviviste al viernes</p>
+                        <p>Descripción: Logro desbloqueado al sobrevivir al viernes en el Grupo de Programación Web.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Más logros del Grupo de Programación Web se pueden agregar aquí -->
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
+

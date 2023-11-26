@@ -1,0 +1,568 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taskmaster</title>
+    <style>
+        header {
+    background: linear-gradient(to right, #002aff, #b607cddc);
+    color: #fff;
+    padding: 0 rem;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 0.5%; /* Ajuste de la altura para que no sea demasiado pequeña */
+    width: 100%; /* Cambio a 100% para que se extienda a lo largo de la pantalla */
+}
+
+
+
+
+
+
+
+
+
+    .logo {
+    width: 25%;
+    margin-right:64%;
+}
+
+
+
+
+
+
+.Recompensa, .usuarioPerfil {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%; /* Ajusta el tamaño de la imagen según tus necesidades */
+    height: autopx; /* Ajusta el tamaño de la imagen según tus necesidades */
+    display: inline-block;
+    cursor: pointer;
+    text-indent: -9999px;
+    border: none;
+    background-color: transparent;
+    padding: 2%;
+ 
+}
+
+.Configuracion, .Seccion1, .Seccion2 {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px; /* Ajusta el tamaño de la imagen según tus necesidades */
+    height: 50px; /* Ajusta el tamaño de la imagen según tus necesidades */
+    display: inline-block;
+    cursor: pointer;
+    text-indent: -9999px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+ 
+}
+.Campana, .Agregar, .AgregarAmigo {
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px; /* Ancho de la imagen en píxeles */
+    height: 50px; /* Alto de la imagen en píxeles */
+    display: inline-block;
+    cursor: pointer;
+    text-indent: -9999px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+
+.Campana {
+    background-image: url('Images/Campana_notificacion.png'); /* Asegúrate de que la ruta de la imagen sea correcta */
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 50px; /* Ancho de la imagen en píxeles */
+    height: 50px; /* Alto de la imagen en píxeles */
+    display: inline-block;
+    cursor: pointer;
+    text-indent: -9999px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+}
+.AgregarSeccion_Mas_Left_Panel {
+    background-image: url('Images/+Agregar\ Seccion.png'); /* Asegúrate de que la ruta de la imagen sea correcta */
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 150px; /* Ancho de la imagen en píxeles */
+    height: 40px; /* Alto de la imagen en píxeles */
+    
+    cursor: pointer;
+    text-indent: -9999px;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 230%;
+}
+.Agregar {
+    background-image: url('images/Agregar.png');
+}
+.AgregarAmigo {
+    background-image: url('images/AgregarAmigo.png');
+    order: 2; /* Esto asegura que el enlace esté a la derecha si no lo está */
+    
+}
+
+.espacio{
+margin-left: 60%
+
+
+}
+.Configuracion {
+    background-image: url('images/Barrita_herramienta.png');
+}
+.Seccion1 {
+    background-image: url('images/secciones.png    ');
+}
+
+.Seccion2 {
+    background-image: url('images/secciones2.png');
+}
+.usuarioPerfil {
+    background-image: url('images/Perfil_Imagen.png');
+}
+.Recompensa {
+    background-image: url('images/Recompensa.png');
+}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #EAEAEA;
+            margin: 0;
+            padding: 0;
+        }
+
+
+
+        
+        #container {
+            display: flex;
+            width: 100vw;
+            height: 88vh;
+        }
+        #left-panel {
+            flex: 1;
+            background-color: #c4c4c4;
+           
+            padding-right: 1%;
+            border-right: 1% solid #ccc;
+            flex-direction: column;
+            text-align: left;
+            height: auto;
+        }
+        #middle-panel {
+            flex: 7;
+            background-color: #fff;
+            padding: 0%;
+            border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: auto;
+        }
+        #middle-panelProgramacionWeb {
+            background: #c4c4c4;
+      color: #fff;
+      padding: 1rem;
+      display: flex;
+      justify-content: flex-end;
+    align-items: center;
+      height: 1.5%;
+      width: 100%;
+        }
+        .textoPanelProgramacion{
+            background: #c4c4c4;
+            color: #000000;
+            display: flex;
+            justify-content: flex-end; /* Corregido de 'space between' a 'space-between' */
+    align-items: center;
+    margin-right: 15%;
+
+
+
+        }
+        .TextoListaAmigos{
+            color: #ffffff;
+            margin-right: 25%;
+            
+
+
+
+        }
+        #right-panel {
+            flex: 2;
+            background-color: #BBE7FF;
+            padding: 0px;
+            padding-right:0px ;
+            
+        }
+        #right-panelRecordatorios{
+  background: linear-gradient(to right, #002aff, #b607cddc);
+  color: #fff;
+  
+  padding: 1rem; /* Ajusta el padding según sea necesario */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height:  1.5%; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
+  width: calc(100% - 1rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
+  width: auto;
+  margin-right: 0;
+
+    
+}
+
+
+#right-panelListaAmigos {
+    background: linear-gradient(to right, #002aff, #b607cddc);
+  color: #fff;
+  padding: 1rem; /* Ajusta el padding según sea necesario */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 5px; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
+  width: calc(100% - 2rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
+}
+        .section-Middle{
+            font-weight: bold;
+            background: #cac6c6;
+            color: #fff;
+            padding: 10px 20px;
+            margin-bottom: 10px;
+        }
+        .section-Left{
+            font-weight: bold;
+            background: linear-gradient(to right, #002aff, #b607cddc);
+            color: #fff;
+           padding: 7%;
+           width: 100%;
+           height: 1.5%;
+            margin-bottom: 2%;
+        }
+        .section-Right{
+            font-weight: bold;
+            color: #fff;
+            margin-right: 10%;
+           
+            
+            
+        }
+        .Texto {
+            font-weight: bold;
+            background: white;
+            color: #000000;
+            margin-left: 30px;
+            margin-bottom: 10px;
+        }
+       
+        .title-amigos {
+    flex-grow: 1;
+    /* Esto hará que el texto ocupe el espacio disponible */
+    /* Agrega cualquier estilo adicional para el texto aquí */
+}
+        .right-textarea {
+    width: 97%;
+    height: 37%;
+    border: none;
+    margin: 0;
+}
+#textarea_Recordatorios {
+    background: #0ddefa;
+    width: 100%;
+    height: 43%;
+}
+#textarea_Lista_Amigos {
+    background: #dd67d7;
+    width: 100%;
+    height: 41%;
+    
+}
+        textarea {
+            margin-left: 30px;
+            width: 90%;
+            height: 50%;
+            background: #cac6c6;
+        }
+        .escuela {
+            background: none;
+            color: #000;
+            border: none;
+            padding: 10px 60px;
+            margin-top: 0;
+            border-radius: 0;
+            cursor: pointer;
+            margin-left: 2px;
+        }
+        .agregarSeccion {
+            background: none;
+            color: #000;
+            border: none;
+            padding: 10px 10px;
+            margin-top: 350px;
+            border-radius: 0;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .save-button:hover {
+            background: linear-gradient(to right, #002aff, #b607cddc);
+            color: #fff;
+        }
+        .button-conteiner{
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 0px;
+            margin-left: 220px;
+        }
+        
+        button {
+            background: none;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            margin-left: 20px;
+        }
+        
+        .button-left {
+            background-image: url('images/Redes.PNG');
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100px;
+            height: 84px;
+            border: none;
+            cursor: pointer;
+        }
+       
+        .button-middle {
+            background-image: url('images/Programacion\ Web.PNG');
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100px;
+            height: 80px;
+            border: none;
+            cursor: pointer;
+        }
+        .button-right {
+            background-image: url('images/Agregar_materia.PNG');
+            background-size: cover;
+            background-repeat: no-repeat;
+            width: 100px;
+            height: 80px;
+            border: none;
+            cursor: pointer;
+        }
+     
+   
+
+/* Cambiar los colores cuando se hace clic en el botón */
+
+       
+            button:hover, .Recompensa:hover, .usuarioPerfil:hover, .Configuracion:hover, 
+.Seccion1:hover, .Seccion2:hover, .Campana:hover, .Agregar:hover, .AgregarAmigo:hover,.AgregarSeccion_Mas_Left_Panel:hover
+,.button-left:hover,.button-middle:hover,.button-right:hover{
+    background-color: rgba(226, 7, 116, 0.616); /* Color de fondo morado claro con transparencia */
+    outline: 2px solid rgba(219, 12, 64, 0.5); /* Borde morado claro con transparencia */
+    color: #000; /* Mantén el color del texto igual */
+    transition: background-color 0.3s, outline 0.3s; /* Transición suave */
+    border-radius: 10px;
+}
+        
+        .usuarioPerfil {
+            position: relative;
+            display: inline-block;
+         
+        }
+        #userMenu {
+            display: none;
+            position: absolute;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            z-index: 1000;
+            right: 0; /* Remueve esta línea si está presente */
+    left: auto;
+     /* Asegúrate de que el menú no sea más ancho que la ventana */
+     max-width: 100%;
+    overflow: hidden; /* Oculta cualquier contenido que sobrepase el menú */
+    min-width: 15%; /* Ajusta esto según la anchura deseada para el menú */
+    /* Otros estilos... */
+        }
+        #userMenu ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+        #userMenu li a {
+            display: block;
+            color: #333;
+            padding: 8px 16px;
+            text-decoration: none;
+        }
+        #userMenu li a:hover {
+            background-color: #f5f5f5;
+        }
+        /* ... Other styles ... */
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo" src="Images/Alargado blanco.png" alt="Logo de la página">
+        <a href="#" class="Recompensa"></a>
+        <div class="usuarioPerfil" onclick="toggleUserMenu()">
+            <!-- Icon or image for user profile -->
+        </div>
+        <div id="userMenu">
+            <ul>
+                <li><a href="informacionPerfil.html">Perfil</a></li>
+                <li><a href="editarPerfil.html">Configuración de perfil</a></li>
+                <li><a href="javascript:void(0);" onclick="confirmarCierreSesion()">Cerrar sesión</a></li>
+            </ul>
+        </div>
+    </header>
+    <div id="container">
+        <div id="left-panel">
+            <form>
+                <div id="panel-secciones" class="section-Left">Secciones</div>
+                <button class="escuela">Escuela</button>
+                <button>Tareas del hogar</button>
+                <button>Tareas grupales</button>
+                <button>nueva seccion</button>
+                <button id="boton-agregar-seccion" class="AgregarSeccion_Mas_Left_Panel" onclick="agregarSeccion()">
+                Agregar sección
+                </button>
+
+
+            </form>
+        </div>
+        <div id="middle-panel">
+            <div id="middle-panelProgramacionWeb">
+                <div class="textoPanelProgramacion">Escuela</div>
+                <div class="espacio"></div>
+                <a href="#" class="Configuracion"></a>
+        <a href="#" class="Seccion1"></a>
+        <a href="#" class="Seccion2"></a>
+       
+
+
+                
+            </div>
+            
+            <div class="button-container">
+                <button class="button-left"></button>
+                <button class="button-middle"></button>
+                <button class="button-right"></button>
+            </div>
+            
+            
+          
+        </div>
+        <div id="right-panel">
+            
+                <div id="right-panelRecordatorios">
+                    <div class="section-Right">Recordatorios</div>
+                    <a href="#" class="Campana">Notificaciones</a>
+                    <a href="#" class="Agregar">Agregar</a>
+                </div>
+   
+
+           
+        
+   
+            <textarea id="textarea_Recordatorios" name="recordatorios" class="right-textarea"></textarea>
+            <div id="right-panelRecordatorios">
+                <div class="TextoListaAmigos">Lista de amigos</div>
+                <a href="#" class="AgregarAmigo">AgregarAm</a>
+                
+            </div>
+            <textarea id="textarea_Lista_Amigos" name="amigos" class="right-textarea"></textarea>
+        </div>
+    </div>
+    <script>
+    
+        function toggleUserMenu() {
+            var userMenu = document.getElementById('userMenu');
+            if (userMenu.style.display === 'block') {
+                userMenu.style.display = 'none';
+            } else {
+                userMenu.style.display = 'block';
+                var userProfile = document.querySelector('.usuarioPerfil');
+                var rect = userProfile.getBoundingClientRect();
+                userMenu.style.top = rect.bottom + 'px';
+                userMenu.style.left = rect.left + 'px';
+            }
+
+            var userMenu = document.getElementById('userMenu');
+    var userProfile = document.querySelector('.usuarioPerfil');
+    var rect = userProfile.getBoundingClientRect();
+
+    // Espera hasta que el menú sea visible para obtener su ancho
+    userMenu.classList.toggle('user-menu-hidden');
+    var menuWidth = userMenu.offsetWidth;
+
+    // Calcular la posición izquierda
+    var leftOffset = rect.right - menuWidth; // Alinea el borde derecho del menú con el borde derecho del botón
+
+    // Asegúrate de que el menú no se sale de la pantalla a la izquierda
+    leftOffset = Math.max(leftOffset, 10); // 10px de margen de la ventana izquierda
+
+    userMenu.style.left = `${leftOffset}px`;
+    userMenu.style.top = `${rect.bottom + window.scrollY}px`;
+    // Si el menú ya se había ocultado, alterna la clase de nuevo
+    if (userMenu.style.display === 'none') {
+        userMenu.classList.toggle('user-menu-hidden');
+    }
+
+    function posicionaMenu() {
+    var userMenu = document.getElementById('userMenu');
+    var userProfile = document.querySelector('.usuarioPerfil');
+    if (userProfile) {
+        var rect = userProfile.getBoundingClientRect();
+        var leftOffset = rect.left - userMenu.offsetWidth + userProfile.offsetWidth;
+        // Asegúrate de que el menú no se sale de la pantalla a la izquierda
+        if (leftOffset < 0) {
+            leftOffset = 0; // Ajusta para que no se salga de la pantalla
+        }
+        userMenu.style.left = leftOffset + 'px';
+        userMenu.style.top = rect.bottom + 'px';
+    }
+}
+
+// Llama a posicionaMenu() cuando se carga la página y cuando se cambia el tamaño de la ventana
+window.onload = posicionaMenu;
+window.onresize = posicionaMenu;
+
+// Función para alternar la visibilidad del menú
+function toggleUserMenu() {
+    var userMenu = document.getElementById('userMenu');
+    userMenu.classList.toggle('user-menu-hidden');
+    posicionaMenu(); // Asegúrate de que el menú esté correctamente posicionado
+}
+
+
+        }
+        function cerrarSesion() {
+            // Logic for user logout
+        }
+
+        function confirmarCierreSesion() {
+    var confirmacion = confirm("¿Estás seguro que deseas cerrar sesión?");
+    if (confirmacion) {
+        // Aquí puedes añadir la lógica de cierre de sesión, como borrar cookies o tokens de sesión.
+        window.location.href = 'login.html'; // Redirige a la página de inicio de sesión.
+    }
+}
+    </script>
+</body>
+</html>

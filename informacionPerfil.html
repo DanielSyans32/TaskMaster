@@ -106,6 +106,7 @@
     .profile-info-container {
       flex-grow: 1;
       margin-left: 200px;
+      
     }
 
     .profile-info {
@@ -176,11 +177,13 @@
 <body>
   <header>
     <button class="back-button">
-      <img src="Images/atras.png" alt="Atrás" class="back-button-image"> 
+      <a href="seccion2.html" class="back-button">
+        <img src="Images/atras.png" alt="Atrás" class="back-button-image">
+    </a>
     </button>
     
     <img class="logo" src="Images/Alargado blanco.png" alt="Logo de la página">
-    <a href="#" class="delete-button">Eliminar cuenta</a>
+    <a href="#" class="delete-button" onclick="confirmDelete();">Eliminar cuenta</a>
   </header>
   <div class="container">
     <div class="section1">
@@ -207,12 +210,23 @@
       </div>
     </div>
     <div class="section3">
-      <button class="save-button">Ver logros</button>
+      <button class="save-button" onclick="window.location.href='logros.html';">Ver logros</button>
       <p style="margin-top: 3rem;">Agrega una descripción sobre ti (0/130 caracteres):</p>
 <textarea class="description" rows="4"></textarea>
 
       
     </div>
   </div>
+
+  <script>
+    function confirmDelete() {
+        if(confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
+            // Aquí iría el código para eliminar la cuenta, como una solicitud AJAX a tu servidor o base de datos
+            window.location.href = 'Home.html'; // Redirigir al usuario a la página de inicio
+        }
+    }
+    </script>
+
+
 </body>
 </html>

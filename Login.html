@@ -1,0 +1,363 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="Images/Logo_blanco.png" type="image/x-icon" >
+    <title>Iniciar Sesion - Taskmaster</title>
+    <style>
+        /* Estilos para la página completa */
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: url("Images/Difuminado.jpg"); /* Ruta de la imagen de fondo */
+            background-size: cover; /* Ajustar la imagen al tamaño de la ventana */
+            background-repeat: no-repeat; /* Evitar la repetición de la imagen */
+            background-attachment: fixed; /* Fijar la imagen en su lugar al hacer scroll */
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Estilos para el contenedor principal */
+        .contenedor {
+            width: 95%; /* Ancho del contenedor (95% de la pantalla) */
+            max-width: 3000px; /* Ancho máximo */
+            height: 71vh; /* Altura del contenedor (90% de la altura de la ventana) */
+            background-color: #fafafa;
+            /*border: 2px solid #ffffff; */
+            border-radius: 10px;
+            padding: 0px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: row; /* Cambiar la dirección del flujo a horizontal */
+        }
+
+        /* Estilos para la sección izquierda */
+        .seccion-izquierda {
+            flex: 2; /* Proporción de ancho de la Sección 1 */
+            padding: 50px; /* Aumenta el espacio dentro de la sección izquierda */
+            background-image: url("Images/LoginHDB.png"); /* Ruta de la imagen de fondo */
+            background-size: contain; /* Ajustar la imagen al tamaño de la sección */
+            background-repeat: no-repeat; /* Evitar la repetición de la imagen */
+            margin-left: 20px;
+            background-position: center;
+            display: flex;
+            justify-content: center; /* Centrar horizontalmente */
+            align-items: center; /* Centrar verticalmente */
+        }
+
+        
+
+        /* Estilos para la sección derecha */
+        .seccion-derecha {
+            flex: 1; /* Proporción de ancho de la Sección 2 */
+            padding: 30px; /* Aumenta el espacio dentro de la sección derecha */
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Centrar elementos verticalmente */
+        }
+
+        /* Estilos para el mensaje de bienvenida */
+        .mensaje-bienvenida {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Estilos para la imagen de bienvenida */
+        img {
+            width: 100%; /* Ajusta el ancho de la imagen al 100% del contenedor */
+            max-width: 400px; /* Establece un ancho máximo para la imagen */
+            margin-left: 150px;
+            margin-right: 150px; /* Agrega margen inferior para separarla del siguiente contenido */
+        }
+
+        /* Estilos para los campos de entrada de texto */
+        .input-container {
+            position: relative;
+            width: 100%;
+            margin: 8px 0;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 50px;
+            background-color: #dad8d8;
+            font-size: 16px;
+            color: #000000;
+        }
+
+        /* Estilo para el ícono de usuario */
+        .icono-usuario,
+        .icono-contrasena {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .icono-usuario {
+            background-image: url("Images/User.png"); /* Ruta de la imagen de usuario */
+        }
+
+        .icono-contrasena {
+            background-image: url("Images/Candado.png"); /* Ruta de la imagen de contraseña */
+        }
+
+        /* Estilos para los botones */
+        .boton-iniciar-sesion,
+        .boton-registrarme,
+        .boton-no-tienes-cuenta {
+            background-color: #0e3edc;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+            margin-left: 20px;
+            padding: 20px 40px; /* Ajustar el padding para cambiar el tamaño */
+            border: none;
+            border-radius: 50px;
+            font-size: 20px; /* Tamaño de fuente */
+            transition: background-color 0.3s, transform 0.2s; /* Agregar transición al color de fondo y transformación */
+        }
+
+        /* Estilo de hover para los botones */
+        .boton-iniciar-sesion:hover,
+        .boton-registrarme:hover,
+        .boton-no-tienes-cuenta:hover {
+            transform: scale(1.05); /* Hacer que el botón aumente ligeramente de tamaño al pasar el mouse */
+        }
+
+        /* Estilos para el botón de "No tienes cuenta aún?" */
+        .boton-no-tienes-cuenta {
+            background-color: transparent; /* Fondo transparente */
+            color: #0e3edc; /* Color de texto azul */
+            cursor: pointer;
+            font-weight: bold;
+            border: none;
+            font-size: 18px;
+            margin-top: 10px; /* Espacio superior */
+            transition: color 0.3s; /* Agregar transición al color de texto */
+            margin-right: 20px;
+        }
+
+        /* Estilo de hover para el botón "No tienes cuenta aún?" */
+        .boton-no-tienes-cuenta:hover {
+            color: #5e08f4; /* Cambiar el color de texto al pasar el mouse a azul más oscuro */
+        }
+
+        /* Estilos para los labels */
+        label {
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* Estilos para el placeholder de los campos de texto */
+        input[type="text"]::placeholder,
+        input[type="password"]::placeholder,
+        input[type="email"]::placeholder {
+            font-size: 14px; /* Tamaño de fuente del placeholder */
+            color: #999; /* Color del placeholder */
+        }
+
+        /* Ocultar el formulario de Registro por defecto */
+        .formulario-registro {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <div class="seccion-izquierda">
+            <h2 class="titulo"></h2>
+            <!-- Contenido de la sección 1 -->
+        </div>
+        <div class="seccion-derecha">
+            <!-- Mensaje de bienvenida -->
+            <img src="Images/login.png" alt="Mensaje de bienvenida">
+            <!-- Formulario de Inicio de Sesión -->
+            <form class="formulario" onsubmit="iniciarSesion(event)">
+                <!-- Campo de entrada de usuario -->
+                <div class="input-container">
+                    <input type="text" id="email" name="email" placeholder="Email"required>
+                    <div class="icono-usuario"></div>
+                </div>
+                <!-- Campo de entrada de contraseña -->
+                <div class="input-container">
+                    <input type="password" id="contrasena" name="contrasena" placeholder="Contraseña"required>
+                    <div class="icono-contrasena"></div>
+                </div>
+                <!-- Botón de iniciar sesión -->
+                <input type="submit" value="Iniciar Sesión" class="boton-iniciar-sesion" >
+               
+            </form>
+            <!-- Formulario de Registro -->
+            <form class="formulario-registro" onsubmit="registrarUsuario(event)" >
+                
+                <!-- Campo de entrada de nombre -->
+                <div class="input-container">
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+                    <div class="icono-usuario"></div>
+                </div>
+                <!-- Campo de entrada de correo -->
+                <div class="input-container">
+                    <input type="email" id="email-registro" name="email" placeholder="Email"required>
+                    <div class="icono-usuario"></div>
+                </div>
+                <!-- Campo de entrada de contraseña -->
+                <div class="input-container">
+                    <input type="password" id="contrasena-registro" name="contrasena-registro" placeholder="Contraseña" required>
+                    <div class="icono-contrasena"></div>
+                </div>
+                <!-- Botón de registro -->
+                <input type="submit" value="¡Registrarme!" class="boton-registrarme">
+                
+            </form>
+            <!-- Botón para alternar entre formularios -->
+            <button class="boton-no-tienes-cuenta" id="btn-mostrar-ocultar-registro">¡Registrarte!</button>
+        </div>
+    </div>
+    <script>
+         // Función para mostrar u ocultar el formulario de registro y ocultar el botón de inicio de sesión
+         document.getElementById('btn-mostrar-ocultar-registro').addEventListener('click', function () {
+            const formularioRegistro = document.querySelector('.formulario-registro');
+            const formularioInicioSesion = document.querySelector('.formulario');
+            const botonNoTienesCuenta = document.querySelector('.boton-no-tienes-cuenta');
+            
+            if (formularioRegistro.style.display === 'none') {
+                formularioRegistro.style.display = 'block';
+                formularioInicioSesion.style.display = 'none';
+                botonNoTienesCuenta.style.display = 'none'; // Ocultar el botón "¿No tienes cuenta aún?"
+            } else {
+                formularioRegistro.style.display = 'none';
+                formularioInicioSesion.style.display = 'block';
+                botonNoTienesCuenta.style.display = 'block'; // Mostrar nuevamente el botón al volver al formulario de inicio de sesión
+            }
+        });
+    </script>
+
+
+    <script>
+    // Creación de un usuario de ejemplo en localStorage (esto se hace una sola vez)
+    /*if (!localStorage.getItem('usuario')) {
+        localStorage.setItem('usuario', 'usuarioEjemplo');
+        localStorage.setItem('contrasena', 'contrasenaEjemplo');
+    }*/
+    // iniciar sesion login.
+    function iniciarSesion(event) {
+        event.preventDefault();
+        var email = document.getElementById('email').value;
+        var contrasena = document.getElementById('contrasena').value;
+        
+        fetch('http://localhost:3000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ email:email, password: contrasena })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.userId) {
+                // Guardar el token en localStorage o en una cookie
+                localStorage.setItem('userId', data.userId);
+                // Redirigir al usuario a la página principal
+                window.location.href = 'Seccion2.html';
+            } else {
+                // Mostrar mensaje de error
+                alert('Inicio de sesión fallido: ' + data.message);
+            }
+        })
+        .catch(error => {
+            console.error('Error durante el inicio de sesión:', error);
+        });
+    }
+    
+
+//Funcion para guardar token del usuario
+
+
+    // Registrar usuario login
+function registrarUsuario(event) {
+    event.preventDefault();
+    var nombre = document.getElementById('nombre').value.trim();
+    var email = document.getElementById('email-registro').value.trim();
+    var contrasena = document.getElementById('contrasena-registro').value.trim();
+    
+    if (!nombre || !email || !contrasena) {
+        alert('Por favor, completa todos los campos para registrarte.');
+        return;
+    }
+
+    fetch('http://localhost:3000/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username:nombre, email: email, password: contrasena })
+
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Registro fallido: ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert(data.message);
+        // Redirigir al usuario a la página de inicio de sesión
+        window.location.href = 'login.html'; // Asegúrate de que esta es la ruta correcta a tu página de inicio de sesión
+    })
+    .catch(error => {
+        console.error('Error durante el registro:', error);
+        alert(error.message);
+    });
+}
+
+
+
+
+    // Función que se llama al enviar el formulario de inicio de sesión
+   /* function verificarCredenciales(event) {
+        // Prevenir la recarga de la página
+       // event.preventDefault();
+        
+        // Obtener los valores ingresados por el usuario
+        var usuario = document.getElementById('usuario').value;
+        var contrasena = document.getElementById('contrasena').value;
+
+        // Obtener los datos del usuario almacenados en localStorage
+        var usuarioAlmacenado = localStorage.getItem('usuario');
+        var contrasenaAlmacenada = localStorage.getItem('contrasena');
+
+        // Verificar si las credenciales ingresadas coinciden con las almacenadas
+        if(usuario === usuarioAlmacenado && contrasena === contrasenaAlmacenada) {
+            // Si son correctas, redirigir a la página Seccion1.html
+            window.location.href = 'Seccion2.html';
+        } else {
+            // Si son incorrectas, mostrar un mensaje de error
+            alert('El usuario o la contraseña son incorrectos.');
+        }
+    }*/
+
+    // Agregar el manejador del evento submit al formulario
+   // document.querySelector('.formulario').addEventListener('submit', verificarCredenciales);
+
+
+
+    </script>
+
+</body>
+</html>
