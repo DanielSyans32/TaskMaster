@@ -130,19 +130,22 @@ app.delete('/eliminarSeccion/:id', (req, res) => {
 // Ruta para crear una nueva subsección
 app.post('/crearSubseccion', (req, res) => {
     const { nombre, id_seccion } = req.body; // Obtén el nombre de la subsección y el ID de la sección a la que pertenece
-    const query = 'INSERT INTO subsecciones (nombre, id_seccion) VALUES (?, ?)';
-    db.query(query, [nombre, id_seccion], (error, results) => {
+    const query = 'INSERT INTO subsections (section_id,name) VALUES (?, ?)';
+    db.query(query, [id_seccion, nombre], (error, results) => {
         if (error) {
-            return res.status(500).send({ message: 'Error al crear la subsección', error });
-        }
-        res.status(200).send({ message: 'Subsección creada con éxito', id: results.insertId });
+            console.error('Error al crear la subsección: ', error);
+            res.status(500).json({ success: false, message: 'Error al crear la subsección' });
+          } else {
+            res.status(200).json({ success: true, message: 'Subsección creada con éxito', id: results.insertId });
+          }
     });
 });
 
 // Ruta para obtener las subsecciones de una sección
+
 app.get('/obtenerSubsecciones', (req, res) => {
-    const { id_seccion } = req.query.id; // Obtén el ID de la sección
-    const query = 'SELECT * FROM subsecciones WHERE id_seccion = ?';
+    const id_seccion = req.query.id_seccion; // Asegúrate de obtener el parámetro correctamente
+    const query = 'SELECT * FROM subsections WHERE section_id = ?';
     db.query(query, [id_seccion], (error, results) => {
         if (error) {
             return res.status(500).send({ message: 'Error al obtener subsecciones', error });
@@ -150,6 +153,7 @@ app.get('/obtenerSubsecciones', (req, res) => {
         res.status(200).send({ subsecciones: results });
     });
 });
+
 
 // Ejemplo de cómo podrías manejar la eliminación de una subsección
 app.delete('/eliminarSubseccion', (req, res) => {
@@ -166,6 +170,52 @@ app.delete('/eliminarSubseccion', (req, res) => {
         }
     });
 });
+//Eliminar subsecciones
+app.delete('/eliminarSubseccion/:id', (req, res) => {
+    const idSubseccion = req.params.id;
+    // Aquí tu lógica para eliminar la subsección de la base de datos...
+    // Por ejemplo:
+    const query = 'DELETE FROM subsections WHERE id = ?';
+    db.query(query, [idSubseccion], (error, results) => {
+        if (error) {
+            res.status(500).send({ success: false, message: 'Error al eliminar la subsección', error });
+        } else {
+            res.send({ success: true, message: 'Subsección eliminada correctamente' });
+        }
+    });
+});
+
+//Editar subsecciones
+// En conexionBD_Login.js
+
+app.post('/actualizarSubseccion', (req, res) => {
+    const { id, nombre } = req.body;
+    // Asegúrate de que la consulta SQL esté bien formada y sea segura
+    const query = 'UPDATE subsections SET name = ? WHERE id = ?';
+    db.query(query, [nombre, id], (error, results) => {
+        if (error) {
+            res.status(500).json({ success: false, message: 'Error al actualizar subsección', error });
+        } else {
+            res.json({ success: true, message: 'Subsección actualizada correctamente' });
+        }
+    });
+});
+
+//Informacion de perfil
+// Este es un ejemplo usando Express.js
+app.get('/informacionUsuario', (req, res) => {
+    const userId = req.query.id; // O podrías obtenerlo de una sesión o un token
+
+    const query = 'SELECT * FROM users WHERE id = ?';
+    db.query(query, [userId], (error, results) => {
+        if (error) {
+            return res.status(500).send({ message: 'Error al obtener informacion perfil', error });
+        }
+        res.status(200).send({ perfilInformacion: results });
+    });
+});
+
+
 
 // No olvides configurar el middleware para parsear el cuerpo de las solicitudes en formato JSON
 app.use(express.json());

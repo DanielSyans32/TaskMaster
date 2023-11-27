@@ -6,15 +6,17 @@
     <title>Taskmaster</title>
     <style>
     header {
-    background: linear-gradient(to right, #002aff, #b607cddc);
-    color: #fff;
-    padding: 0 rem;
-    display: flex;
-    justify-content: space-between; /* Corregido de 'space between' a 'space-between' */
-    align-items: center;
-    height: 0.5%; /* Ajuste de la altura para que no sea demasiado pequeña */
-    width: 100%; /* Cambio a 100% para que se extienda a lo largo de la pantalla */
-}
+        background: linear-gradient(to right, #002aff, #b607cddc);
+        color: #fff;
+        padding: 0 rem;
+        display: flex;
+        justify-content: space-between; /* Corregido de 'space between' a 'space-between' */
+        align-items: center;
+        height: 0.5%; /* Ajuste de la altura para que no sea demasiado pequeña */
+        width: 100%; /* Cambio a 100% para que se extienda a lo largo de la pantalla */
+    }
+
+
 
 
 
@@ -25,16 +27,16 @@
 
 
     .logo {
-    width: 25%;
-    margin-right:64%;
-}
+        width: 25%;
+        margin-right:64%;
+    }
 
 
 
 
 
 
-.Recompensa, .usuarioPerfil {
+    .Recompensa, .usuarioPerfil {
     background-size: contain;
     background-repeat: no-repeat;
     width: 100%; /* Ajusta el tamaño de la imagen según tus necesidades */
@@ -46,9 +48,9 @@
     background-color: transparent;
     padding: 2%;
  
-}
+    }
 
-.Configuracion, .Seccion1, .Seccion2 {
+    .Configuracion, .Seccion1, .Seccion2 {
     background-size: contain;
     background-repeat: no-repeat;
     width: 50px; /* Ajusta el tamaño de la imagen según tus necesidades */
@@ -60,322 +62,333 @@
     background-color: transparent;
     padding: 0;
  
-}
-.Campana, .Agregar, .AgregarAmigo {
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 50px; /* Ancho de la imagen en píxeles */
-    height: 50px; /* Alto de la imagen en píxeles */
-    display: inline-block;
-    cursor: pointer;
-    text-indent: -9999px;
-    border: none;
-    background-color: transparent;
-    padding: 0;
-}
+    }
+    .Campana, .Agregar, .AgregarAmigo {
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 50px; /* Ancho de la imagen en píxeles */
+        height: 50px; /* Alto de la imagen en píxeles */
+        display: inline-block;
+        cursor: pointer;
+        text-indent: -9999px;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
 
-.Campana {
-    background-image: url('Images/Campana_notificacion.png'); /* Asegúrate de que la ruta de la imagen sea correcta */
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 50px; /* Ancho de la imagen en píxeles */
-    height: 50px; /* Alto de la imagen en píxeles */
-    display: inline-block;
-    cursor: pointer;
-    text-indent: -9999px;
-    border: none;
-    background-color: transparent;
-    padding: 0;
-}
+    .Campana {
+        background-image: url('Images/Campana_notificacion.png'); /* Asegúrate de que la ruta de la imagen sea correcta */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 50px; /* Ancho de la imagen en píxeles */
+        height: 50px; /* Alto de la imagen en píxeles */
+        display: inline-block;
+        cursor: pointer;
+        text-indent: -9999px;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+    }
 
 /* Estilo normal del botón */
-.AgregarSeccion_Mas_Left_Panel {
-    background-image: url('Images/+Agregar\ Seccion.png'); /* Asegúrate de que la ruta de la imagen sea correcta */
-    background-size: contain;
-    background-repeat: no-repeat;
-    width: 150px; /* Ancho de la imagen en píxeles */
-    height: 40px; /* Alto de la imagen en píxeles */
-    display: inline-block;
-    cursor: pointer;
-    text-indent: -9999px;
-    border: none;
-    background-color: transparent;
-    padding: 0;
-    margin-top: 260%;
+    .AgregarSeccion_Mas_Left_Panel {
+        background-image: url('Images/+Agregar\ Seccion.png'); /* Asegúrate de que la ruta de la imagen sea correcta */
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 150px; /* Ancho de la imagen en píxeles */
+        height: 40px; /* Alto de la imagen en píxeles */
+        display: inline-block;
+        cursor: pointer;
+        text-indent: -9999px;
+        border: none;
+        background-color: transparent;
+        padding: 0;
+        margin-top: 260%;
+        
+    }
+
+
+
+    .Agregar {
+        background-image: url('images/Agregar.png');
+    }
+    .AgregarAmigo {
+        background-image: url('images/AgregarAmigo.png');
+        order: 2; /* Esto asegura que el enlace esté a la derecha si no lo está */
+        
+    }
+
+    .espacio{
+    margin-left: 67%
+
+    }
+    .Configuracion {
+        background-image: url('images/Barrita_herramienta.png');
+    }
+    .Seccion1 {
+        background-image: url('images/secciones.png    ');
+    }
+
+    .Seccion2 {
+        background-image: url('images/secciones2.png');
+    }
+    .usuarioPerfil {
+        background-image: url('images/Perfil_Imagen.png');
+    }
+    .Recompensa {
+        background-image: url('images/Recompensa.png');
+    }
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #EAEAEA;
+                margin: 0;
+                padding: 0;
+            }
+
+
+
+            
+            #container {
+                display: flex;
+                width: 100vw;
+                height: 88vh;
+            }
+            #left-panel {
+                flex: 1;
+                background-color: #c4c4c4;
+            
+                padding-right: 1%;
+                border-right: 1% solid #ccc;
+                flex-direction: column;
+                text-align: left;
+                height: auto;
+            }
+            #middle-panel {
+                flex: 7;
+                background-color: #fff;
+                padding: 0%;
+                border-right: 1px solid #ccc;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                height: auto;
+            }
+            #middle-panelProgramacionWeb {
+                background: #c4c4c4;
+        color: #fff;
+        padding: 1rem;
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+        height: 1.5%;
+        width: 100%;
+        margin-right: 38%;
+        
+            }
+            .textoPanelProgramacion{
+                background: #c4c4c4;
+                color: #000000;
+
+
+
+            }
+            .TextoListaAmigos{
+                color: #ffffff;
+                margin: 0;
+                margin-right: 38%;
+                
+
+
+
+            }
+            #right-panel {
+                flex: 2;
+                background-color: #BBE7FF;
+                padding: 0px;
+                padding-right:0px ;
+                
+            }
+            #right-panelRecordatorios{
+    background: linear-gradient(to right, #002aff, #b607cddc);
+    color: #fff;
     
-}
-
-
-
-.Agregar {
-    background-image: url('images/Agregar.png');
-}
-.AgregarAmigo {
-    background-image: url('images/AgregarAmigo.png');
-    order: 2; /* Esto asegura que el enlace esté a la derecha si no lo está */
-    
-}
-
-.espacio{
-margin-left: 67%
-
-}
-.Configuracion {
-    background-image: url('images/Barrita_herramienta.png');
-}
-.Seccion1 {
-    background-image: url('images/secciones.png    ');
-}
-
-.Seccion2 {
-    background-image: url('images/secciones2.png');
-}
-.usuarioPerfil {
-    background-image: url('images/Perfil_Imagen.png');
-}
-.Recompensa {
-    background-image: url('images/Recompensa.png');
-}
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #EAEAEA;
-            margin: 0;
-            padding: 0;
-        }
-
-
+    padding: 1rem; /* Ajusta el padding según sea necesario */
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height:  1.5%; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
+    width: calc(100% - 1rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
+    width: auto;
+    margin-right: 0;
 
         
-        #container {
-            display: flex;
-            width: 100vw;
-            height: 88vh;
-        }
-        #left-panel {
-            flex: 1;
-            background-color: #c4c4c4;
-           
-            padding-right: 1%;
-            border-right: 1% solid #ccc;
-            flex-direction: column;
-            text-align: left;
-            height: auto;
-        }
-        #middle-panel {
-            flex: 7;
-            background-color: #fff;
-            padding: 0%;
-            border-right: 1px solid #ccc;
-            display: flex;
-            flex-direction: column;
+    }
+
+
+    #right-panelListaAmigos {
+        background: linear-gradient(to right, #002aff, #b607cddc);
+    color: #fff;
+    padding: 1rem; /* Ajusta el padding según sea necesario */
+    display: flex;
+    justify-content: flex-end; /* Corregido */
+    align-items: center;
+    height: 5px; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
+    width: calc(100% - 2rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
+    }
+            .section-Middle{
+                font-weight: bold;
+                background: #cac6c6;
+                color: #fff;
+                padding: 10px 20px;
+                margin-bottom: 10px;
+            }
+            .section-Left{
+                font-weight: bold;
+                background: linear-gradient(to right, #002aff, #b607cddc);
+                color: #fff;
+            padding: 7%;
             width: 100%;
-            height: auto;
-        }
-        #middle-panelProgramacionWeb {
-            background: #c4c4c4;
-      color: #fff;
-      padding: 1rem;
-      display: flex;
-      justify-content:flex-end;
-      align-items: center;
-      height: 1.5%;
-      width: 100%;
-      margin-right: 38%;
-      
-        }
-        .textoPanelProgramacion{
-            background: #c4c4c4;
-            color: #000000;
-
-
-
-        }
-        .TextoListaAmigos{
-            color: #ffffff;
-            margin: 0;
-            margin-right: 38%;
+            height: 1.5%;
+                margin-bottom: 2%;
+            }
+            .section-Right{
+                font-weight: bold;
+                color: #fff;
+                margin-right: 10%;
             
+                
+                
+            }
+            .Texto {
+                font-weight: bold;
+                background: white;
+                color: #000000;
+                margin-left: 30px;
+                margin-bottom: 10px;
+            }
+        
+            .title-amigos {
+        flex-grow: 1;
+        /* Esto hará que el texto ocupe el espacio disponible */
+        /* Agrega cualquier estilo adicional para el texto aquí */
+    }
+            .right-textarea {
+        width: 97%;
+        height: 37%;
+        border: none;
+        margin: 0;
+    }
+    #textarea_Recordatorios {
+        background: #0ddefa;
+        width: 100%;
+        height: 43%;
+    }
+    #textarea_Lista_Amigos {
+        background: #dd67d7;
+        width: 100%;
+        height: 41%;
+        
+    }
+            textarea {
+                margin-left: 30px;
+                width: 90%;
+                height: 50%;
+                background: #cac6c6;
+            }
+            .escuela {
+                background: none;
+                color: #000;
+                border: none;
+                padding: 10px 60px;
+                margin-top: 0;
+                border-radius: 0;
+                cursor: pointer;
+                margin-left: 2px;
+            }
+            .agregarSeccion {
+                background: none;
+                color: #000;
+                border: none;
+                padding: 10px 10px;
+                margin-top: 350px;
+                border-radius: 0;
+                cursor: pointer;
+                margin-left: 10px;
+            }
+            .save-button:hover {
+                background: linear-gradient(to right, #002aff, #b607cddc);
+                color: #fff;
+            }
+            .button-container2 {
+                display: grid;
+                grid-template-columns: 1fr auto 1fr;
+                gap: 0px;
+                display: flex;
+                justify-content:flex-end;
+                align-items: center;
+                margin-right: 5%;
+            }
+            button {
+                background: none;
+                color: #000;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                margin-left: 14px;
 
-
-
-        }
-        #right-panel {
-            flex: 2;
-            background-color: #BBE7FF;
-            padding: 0px;
-            padding-right:0px ;
-            
-        }
-        #right-panelRecordatorios{
-  background: linear-gradient(to right, #002aff, #b607cddc);
-  color: #fff;
-  
-  padding: 1rem; /* Ajusta el padding según sea necesario */
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height:  1.5%; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
-  width: calc(100% - 1rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
-  width: auto;
-  margin-right: 0;
-
+                
     
-}
-
-
-#right-panelListaAmigos {
-    background: linear-gradient(to right, #002aff, #b607cddc);
-  color: #fff;
-  padding: 1rem; /* Ajusta el padding según sea necesario */
-  display: flex;
-  justify-content: flex-end; /* Corregido */
-  align-items: center;
-  height: 5px; /* Ajustado a 50px para que tenga espacio suficiente para contenido */
-  width: calc(100% - 2rem); /* Usando 100% menos el padding para que se extienda a todo el ancho */
-}
-        .section-Middle{
-            font-weight: bold;
-            background: #cac6c6;
-            color: #fff;
-            padding: 10px 20px;
-            margin-bottom: 10px;
-        }
-        .section-Left{
-            font-weight: bold;
-            background: linear-gradient(to right, #002aff, #b607cddc);
-            color: #fff;
-           padding: 7%;
-           width: 100%;
-           height: 1.5%;
-            margin-bottom: 2%;
-        }
-        .section-Right{
-            font-weight: bold;
-            color: #fff;
-            margin-right: 10%;
-           
-            
-            
-        }
-        .Texto {
-            font-weight: bold;
-            background: white;
-            color: #000000;
-            margin-left: 30px;
-            margin-bottom: 10px;
-        }
-       
-        .title-amigos {
-    flex-grow: 1;
-    /* Esto hará que el texto ocupe el espacio disponible */
-    /* Agrega cualquier estilo adicional para el texto aquí */
-}
-        .right-textarea {
-    width: 97%;
-    height: 37%;
-    border: none;
-    margin: 0;
-}
-#textarea_Recordatorios {
-    background: #0ddefa;
-    width: 100%;
-    height: 43%;
-}
-#textarea_Lista_Amigos {
-    background: #dd67d7;
-    width: 100%;
-    height: 41%;
     
-}
-        textarea {
-            margin-left: 30px;
-            width: 90%;
-            height: 50%;
-            background: #cac6c6;
-        }
-        .escuela {
-            background: none;
-            color: #000;
-            border: none;
-            padding: 10px 60px;
-            margin-top: 0;
-            border-radius: 0;
-            cursor: pointer;
-            margin-left: 2px;
-        }
-        .agregarSeccion {
-            background: none;
-            color: #000;
-            border: none;
-            padding: 10px 10px;
-            margin-top: 350px;
-            border-radius: 0;
-            cursor: pointer;
-            margin-left: 10px;
-        }
-        .save-button:hover {
-            background: linear-gradient(to right, #002aff, #b607cddc);
-            color: #fff;
-        }
-        .button-container {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 0px;
-            margin-left: 25%;
-        }
-        button {
-            background: none;
-            color: #000;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            margin-left: 14px;
+    border-radius: 10px;
+    transition: background-color 0.3s, color 0.3s; /* Transición de color de fondo y texto */
+            }
+            button:hover {
+        background-color: rgba(85, 67, 215, 0.2); /* Color de fondo morado claro con transparencia */
+        outline: 2px solid rgba(85, 67, 215, 0.5); /* Borde morado claro con transparencia */
+        color: #000; /* Mantén el color del texto igual */
+        transition: background-color 0.3s, outline 0.3s; /* Transición suave */
+    }
+            .button-regresarSubseccion {
+                background-image: url('images/FlechaIzquierda.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                width: 80px;
+                height: 40px;
+                border: none;
+                cursor: pointer;
+                
+            }
+            .button-guardarNota {
+                background-image: url('images/guardarNota.png');
+                background-size: cover;
+                background-repeat: no-repeat;
+                width: 50px;
+                height: 50px;
+                border: none;
+                cursor: pointer;
+            }
 
-            
- 
-  
-  border-radius: 10px;
-  transition: background-color 0.3s, color 0.3s; /* Transición de color de fondo y texto */
-        }
-        button:hover {
-    background-color: rgba(85, 67, 215, 0.2); /* Color de fondo morado claro con transparencia */
-    outline: 2px solid rgba(85, 67, 215, 0.5); /* Borde morado claro con transparencia */
-    color: #000; /* Mantén el color del texto igual */
-    transition: background-color 0.3s, outline 0.3s; /* Transición suave */
-}
-        .button-left {
-            background-image: url('images/FlechaIzquierda.png');
-            background-size: cover;
-            background-repeat: no-repeat;
-            width: 120px;
-            height: 80px;
-            border: none;
-            cursor: pointer;
-            
-        }
-        .button-right {
-            background-image: url('images/FlechaDerecha.PNG');
-            background-size: cover;
-            background-repeat: no-repeat;
-            width: 100px;
-            height: 80px;
-            border: none;
-            cursor: pointer;
-        }
+            button:hover, .Recompensa:hover, .usuarioPerfil:hover, .Configuracion:hover, 
+    .Seccion1:hover, .Seccion2:hover, .Campana:hover, .Agregar:hover, .AgregarAmigo:hover,.AgregarSeccion_Mas_Left_Panel:hover{
+        background-color: rgba(226, 7, 116, 0.616); /* Color de fondo morado claro con transparencia */
+        background-color: rgba(to right, #002aff, #b607cddc);
+        outline: 2px solid rgba(219, 12, 64, 0.5); /* Borde morado claro con transparencia */
+        color: #000; /* Mantén el color del texto igual */
+        transition: background-color 0.3s, outline 0.3s; /* Transición suave */
+    }
 
-        button:hover, .Recompensa:hover, .usuarioPerfil:hover, .Configuracion:hover, 
-.Seccion1:hover, .Seccion2:hover, .Campana:hover, .Agregar:hover, .AgregarAmigo:hover,.AgregarSeccion_Mas_Left_Panel:hover{
-    background-color: rgba(226, 7, 116, 0.616); /* Color de fondo morado claro con transparencia */
-    background-color: rgba(to right, #002aff, #b607cddc);
-    outline: 2px solid rgba(219, 12, 64, 0.5); /* Borde morado claro con transparencia */
-    color: #000; /* Mantén el color del texto igual */
-    transition: background-color 0.3s, outline 0.3s; /* Transición suave */
-}
-
-
+    #nombre_nota {
+                width:20%; /* Ancho personalizado en píxeles */
+            }
 
 
     </style>
+
+
+    <!-- Agrega los archivos de flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </head>
 <body>
     <header>
@@ -395,7 +408,8 @@ margin-left: 67%
         </div>
         <div id="middle-panel">
             <div id="middle-panelProgramacionWeb">
-                <div class="textoPanelProgramacion">Programación_web</div>
+                <button class="button-regresarSubseccion"></button>
+                <div class="textoPanelProgramacion">Pendientes</div>
                 <div class="espacio"></div>
                 <a href="#" class="Configuracion"></a>
                 <a href="#" class="Seccion1"></a>
@@ -407,15 +421,41 @@ margin-left: 67%
             </div>
             
             
-            <div class="Texto">Notas: (Fecha)</div>
-            <textarea id="notes"></textarea>
-            <div class="button-container">
-                <button class="button-left"></button>
-                <button class="button-right"></button>
-            </div>
-            <div class="Texto">Recordatorios</div>
             
+            
+            <div class="nombreNota">
+                
+                <label for="nombre de nota:">Nombre:</label>
+                <input type="text" id="nombre_nota" name="nombre" placeholder="Ingresar nombre de la nota" size="1%" maxlength="5%">
+            
+
+            </div>
+            <label for="anotacionesNota:">Definir tarea:</label>
+            <textarea id="notes"></textarea>
+           
+            <div class="FechaAsignacion">
+                <label for="fecha">Fecha vencimiento:</label>
+                <input type="text" id="fecha" name="fecha">
+                
+                <!-- Inicializa flatpickr para el input "fecha" -->
+                <script>
+                    flatpickr("#fecha", {
+                        minDate: "today", // Permite seleccionar solo fechas a partir de hoy
+                    });
+                </script>
+
+
+            </div>
+            
+            <label for="nombre de nota:">Comentarios adicionales:</label>
             <textarea></textarea>
+            <div class="button-container2">
+               
+                <button class="button-guardarNota"></button>
+            </div>
+
+
+
         </div>
         <div id="right-panel">
             

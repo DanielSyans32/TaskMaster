@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calendario HTML</title>
+    <!-- Agrega los archivos de flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+</head>
+<body>
+    <label for="fecha">Fecha de vencimiento.:</label>
+    <input type="text" id="fecha" name="fecha">
+    
+    <!-- Inicializa flatpickr para el input "fecha" -->
+    <script>
+        flatpickr("#fecha", {
+            minDate: "today", // Permite seleccionar solo fechas a partir de hoy
+        });
+    </script>
+</body>
+</html>

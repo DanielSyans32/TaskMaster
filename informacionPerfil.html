@@ -196,12 +196,12 @@
         <p>Información del Perfil</p>
         <div class="profile-info">
           <p>Nombre:</p>
-          <div class="highlight-box">
-            <p>Daniel Nuñez Rodriguez</p>
+          <div class="highlight-box" id="nombreUsuario">
+            <p></p>
           </div>
           <p>Correo:</p>
-          <div class="highlight-box">
-            <p>Daniel.syans38@gmail.com</p>
+          <div class="highlight-box" id="correoUsuario">
+            <p></p>
           </div>
         </div>
       </div>
@@ -225,7 +225,40 @@
             window.location.href = 'Home.html'; // Redirigir al usuario a la página de inicio
         }
     }
+
+
+
+
+    // Este código iría en tu archivo informacionPerfil.html o en un archivo JavaScript separado que sea incluido en esa página
+document.addEventListener('DOMContentLoaded', function() {
+    const userId = localStorage.getItem('userId'); // Asumiendo que guardas el ID del usuario en localStorage
+
+    fetch(`http://localhost:3000/informacionUsuario?id=${userId}`)
+        .then(response => response.json())
+        .then(data => {
+          data.perfilInformacion.forEach(informacion => {
+            // Asumiendo que tienes campos en tu HTML con los IDs 'nombreUsuario' y 'correoUsuario'
+            document.getElementById('nombreUsuario').textContent = informacion.username;
+            document.getElementById('correoUsuario').textContent = informacion.email;
+        
+        
+        
+          })
+        
+        })
+        
+        
+        .catch(error => {
+            console.error('Error al obtener la información del usuario:', error);
+        });
+});
+
+
+
+
+
     </script>
+    
 
 
 </body>
