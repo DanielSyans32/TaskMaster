@@ -700,7 +700,7 @@ margin-left: 55%
             <div class="nombreNota">
                 
                 <label for="nombre de nota:">Nombre:</label>
-                <input type="text" id="nombre_nota" name="nombre" placeholder="Ingresar nombre de la nota" size="1%" maxlength="5%">
+                <input type="text" id="nombre_nota" name="nombre" placeholder="Ingresar nombre de la nota" size="1%" maxlength="20%">
             
 
             </div>
@@ -722,10 +722,11 @@ margin-left: 55%
             </div>
             
             <label for="nombre de nota:">Comentarios adicionales:</label>
-            <textarea></textarea>
+            <textarea id="comentarios"></textarea>
             <div class="button-container2">
                
-                <button class="button-guardarNota"></button>
+                <button class=></button>
+                <button class="button-guardarNota" onclick=guardarNotas()></button>
             </div>
 
 
@@ -1009,8 +1010,8 @@ function editSectionName(nombreSeccion) {
     };
 }
 
-let selectedSectionId = null;
-let selectedSubSectionId = null;
+let selectedSectionId =null;
+let selectedSubSectionId =null;
 
 function setPanelText(text, sectionId) {
   const panelTexto = document.querySelector('.textoPanelProgramacion');
@@ -1268,6 +1269,80 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('DOMContentLoaded', (event) => {
     cargarSeccionesUsuario();
 });
+
+
+//Funcionalidad de notas subsecciones
+
+// Funcionalidad de notas subsecciones
+function guardarNotas() {
+  // Obtener el elemento del campo de entrada por su ID
+  var nombreNotaInput = document.getElementById("nombre_nota");
+
+  // Obtener el valor actual del campo de entrada
+  var nombreNota = nombreNotaInput.value;
+
+  // Obtener el elemento textarea por su ID
+  var notesTextarea = document.getElementById("notes");
+
+  // Obtener el valor actual del textarea
+  var valortextAreaNotes = notesTextarea.value;
+
+  // Obtener el elemento del campo de fecha por su ID
+  var fechaInput = document.getElementById("fecha");
+
+  // Obtener el valor actual del campo de fecha
+  var fechaSeleccionada = fechaInput.value;
+
+  // Obtener el elemento textarea comentarios por su ID
+  var notesTextarea2 = document.getElementById("comentarios");
+
+  // Obtener el valor actual del textarea
+  var textAreaComentarios = notesTextarea2.value;
+
+  if (nombreNota && valortextAreaNotes && fechaSeleccionada && textAreaComentarios && selectedSubSectionId) {
+    console.log('selectedSubSectionId:', selectedSubSectionId);
+    fetch('http://localhost:3000/crearNota', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Corregido aquí
+      },
+      body: JSON.stringify({
+        subsection_id: selectedSubSectionId,
+        nombre: nombreNota,
+        nota: valortextAreaNotes,
+        fecha: fechaSeleccionada,
+        descripcion: textAreaComentarios,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Respuesta del servidor:', data);
+        if (data.success) {
+          alert('Nota agregada con éxito.');
+            // Limpiar los campos
+            nombreNotaInput.value = "";
+            notesTextarea.value = "";
+            fechaInput.value = "";
+            notesTextarea2.value = "";
+          cargarSubsecciones(selectedSectionId);
+          
+        } else {
+          alert('Hubo un error al agregar la nota: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error al agregar la nota: ' + error.message);
+      });
+  } else {
+    alert('Complete todos los campos y seleccione una subsección.');
+  }
+}
+
+
+
+
+
 
     </script>
 </body>

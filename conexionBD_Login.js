@@ -216,6 +216,25 @@ app.get('/informacionUsuario', (req, res) => {
 });
 
 
+//Ingresar datos de las notas
+// Ruta para crear una nueva sección
+app.post('/crearNota', (req, res) => {
+    const { nombre, nota, fecha, descripcion, subsection_id } = req.body;
+  
+    // Imprimir el cuerpo de la solicitud en la consola
+    console.log('Cuerpo de la solicitud:', req.body);
+  
+    const query = 'INSERT INTO notas (subsection_id, nombre, nota, fecha, descripcion) VALUES (?, ?, ?, ?, ?)';
+    db.query(query, [subsection_id, nombre, nota, fecha, descripcion], (error, results) => {
+      if (error) {
+        console.error('Error SQL:', error.sqlMessage); // Muestra el mensaje de error SQL
+        return res.status(500).send({ success: false, message: 'Error al crear la nota', error: error.sqlMessage });
+      }
+      res.status(200).send({ success: true, message: 'Nota creada con éxito', id: results.insertId });
+    });
+  });
+  
+
 
 // No olvides configurar el middleware para parsear el cuerpo de las solicitudes en formato JSON
 app.use(express.json());

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #checklistPanel {
+            width: 300px;
+            max-width: 100%; /* Nuevo: Ancho máximo */
+            max-height: 400px; /* Nuevo: Altura máxima */
+            overflow: auto; /* Nuevo: Agregado para habilitar las barras de desplazamiento si es necesario */
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #0ddefa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #addItemContainer {
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Nuevo: Elimina el margen predeterminado de la lista */
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s; /* Agregado para transiciones */
+        }
+
+        li:hover {
+            background-color: #f9f9f9; /* Color de fondo al pasar el mouse */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sutil sombra al pasar el mouse */
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .deleteButton {
+            background-color: #ff5c5c;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Agregado para transición de color */
+        }
+
+        .deleteButton:hover {
+            background-color: #d32f2f; /* Cambio de color al pasar el mouse */
+        }
+
+        .clickable {
+            cursor: pointer;
+            transition: color 0.3s; /* Agregado para transición de color */
+        }
+
+        .clickable:hover {
+            color: #2196f3; /* Cambio de color al pasar el mouse */
+        }
+    </style>
+    <title>Checklist Panel</title>
+</head>
+<body>
+
+<div id="checklistPanel">
+    <div id="addItemContainer">
+        <input type="text" id="newItem" placeholder="Nueva tarea">
+        <button onclick="addItem()">Agregar</button>
+    </div>
+
+    <ul id="checklist">
+        <!-- Aquí se agregarán dinámicamente los elementos de la lista -->
+    </ul>
+</div>
+
+<script>
+    function addItem() {
+        const newItemInput = document.getElementById("newItem");
+        const newItemText = newItemInput.value.trim();
+
+        if (newItemText !== "") {
+            const checklist = document.getElementById("checklist");
+
+            // Crear un nuevo elemento de la lista
+            const newItem = document.createElement("li");
+            newItem.innerHTML = `
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <span onclick="openItem(this)" class="clickable">${newItemText}</span>
+                <button class="deleteButton" onclick="deleteItem(this)">Eliminar</button>
+            `;
+
+            // Agregar el nuevo elemento a la lista
+            checklist.appendChild(newItem);
+
+            // Limpiar el campo de entrada
+            newItemInput.value = "";
+        }
+    }
+
+    function toggleCompleted(checkbox) {
+        const listItem = checkbox.parentElement;
+        listItem.classList.toggle("completed");
+    }
+
+    function deleteItem(deleteButton) {
+        const listItem = deleteButton.parentElement;
+        listItem.remove();
+    }
+
+    function openItem(item) {
+        // Aquí puedes agregar la lógica para abrir algo cuando se hace clic en el elemento
+        alert(`Abriendo: ${item.textContent}`);
+    }
+</script>
+
+</body>
+</html>

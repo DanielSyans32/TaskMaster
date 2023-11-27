@@ -135,6 +135,11 @@ margin-left: 60%
 
 
 }
+.espacio2{
+margin-left: 55%
+
+
+}
 .Configuracion {
     background-image: url('images/Barrita_herramienta.png');
 }
@@ -194,6 +199,19 @@ margin-left: 60%
             width: 100%;
             height: auto;
         }
+
+        #middle-panelSecundario {
+            flex: 7;
+            background-color: #fff;
+            padding: 0%;
+            border-right: 1px solid #ccc;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: auto;
+            display: none;
+        }
+
         #middle-panel2 {
             flex: 7;
             background-color: #fff;
@@ -203,6 +221,7 @@ margin-left: 60%
             flex-direction: column;
             width: 100%;
             height: auto;
+            
         }
         #middle-panelProgramacionWeb {
             background: #c4c4c4;
@@ -215,6 +234,18 @@ margin-left: 60%
       width: 100%;
         }
         .textoPanelProgramacion{
+            background: #c4c4c4;
+            color: #000000;
+            display: flex;
+            justify-content: flex-end; /* Corregido de 'space between' a 'space-between' */
+    align-items: center;
+    margin-right: 15%;
+
+
+
+        
+}
+.textoPanelProgramacion2{
             background: #c4c4c4;
             color: #000000;
             display: flex;
@@ -489,6 +520,16 @@ margin-left: 60%
   gap: 10px; /* Espacio entre los botones */
 }
 
+    .button-container2 {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 0px;
+        display: flex;
+        justify-content:flex-end;
+        align-items: center;
+        margin-right: 5%;
+    }
+
 .button-subseccion {
   background-size: cover;
   background-repeat: no-repeat;
@@ -537,6 +578,9 @@ margin-left: 60%
         }
 
 
+        #nombre_nota {
+                width:20%; /* Ancho personalizado en píxeles */
+            }
 
 
 
@@ -590,7 +634,7 @@ margin-left: 60%
         </div>
 
 
-        <div id="middle-panel">
+        <div id="middle-panel" class="panel">
             <div id="middle-panelProgramacionWeb">
                 <div class="textoPanelProgramacion">seleccione seccion.</div>
                 <div class="espacio"></div>
@@ -607,7 +651,7 @@ margin-left: 60%
             <div class="button-container" data-id="{idSubseccion}">
                 <!--<button class="button-redes"></button>
                 <button class="button-web"></button> -->
-                <button class="eliminar-subseccion">x</button>
+               
                 
                 
 
@@ -632,6 +676,64 @@ margin-left: 60%
             
           
         </div>
+
+        <!----------------------------------panel secunadario------------------------------------------->
+
+        <div id="middle-panelSecundario" class="panel">
+            <div id="middle-panelProgramacionWeb">
+                <button class="button-regresarSubseccion" onclick="mostrarPanel('middle-panel')"></button>
+                
+                <div class="textoPanelProgramacion2">seleccione subseccion</div>
+                <div class="espacio2"></div>
+                <a href="#" class="Configuracion"></a>
+                <a href="#" class="Seccion1"></a>
+                <a href="#" class="Seccion2"></a>
+       
+
+
+                
+            </div>
+            
+            
+            
+            
+            <div class="nombreNota">
+                
+                <label for="nombre de nota:">Nombre:</label>
+                <input type="text" id="nombre_nota" name="nombre" placeholder="Ingresar nombre de la nota" size="1%" maxlength="20%">
+            
+
+            </div>
+            <label for="anotacionesNota:">Definir tarea:</label>
+            <textarea id="notes"></textarea>
+           
+            <div class="FechaAsignacion">
+                <label for="fecha">Fecha vencimiento:</label>
+                <input type="text" id="fecha" name="fecha">
+                
+                <!-- Inicializa flatpickr para el input "fecha" -->
+                <script>
+                    flatpickr("#fecha", {
+                        minDate: "today", // Permite seleccionar solo fechas a partir de hoy
+                    });
+                </script>
+
+
+            </div>
+            
+            <label for="nombre de nota:">Comentarios adicionales:</label>
+            <textarea id="comentarios"></textarea>
+            <div class="button-container2">
+               
+                <button class=></button>
+                <button class="button-guardarNota" onclick=guardarNotas()></button>
+            </div>
+
+
+
+        </div>
+         <!----------------------------------panel secunadario------------------------------------------->
+
         <div id="right-panel">
             
                 <div id="right-panelRecordatorios">
@@ -656,6 +758,24 @@ margin-left: 60%
     
 
     <script>
+
+
+function mostrarPanel(element) {
+  // Ocultar todos los paneles
+  var todosLosPaneles = document.querySelectorAll('.panel');
+  todosLosPaneles.forEach(function(panel) {
+    panel.style.display = 'none';
+  });
+
+  // Mostrar el panel solicitado
+  var panelParaMostrar = document.getElementById(element);
+  if (panelParaMostrar) {
+    panelParaMostrar.style.display = 'flex'; // o 'flex', 'grid', etc.
+  }
+}
+
+
+
 
 function toggleUserMenu() {
 
@@ -773,6 +893,7 @@ function cargarSeccionesUsuario() {
                 //seccionesContenedor.innerHTML = ''; // Limpiar el contenedor
                 const juntoEdicion=document
                 data.secciones.forEach(seccion => {
+            
                     const seccionDiv = document.createElement('div');
                     seccionDiv.className = 'section-container';
 
@@ -784,6 +905,7 @@ function cargarSeccionesUsuario() {
                     nombreSeccion.onclick=function(){
                         setPanelText(this.textContent,seccion.id);
                         selectSection(seccion.id);
+                        mostrarPanel("middle-panel");
 
 
 
@@ -888,12 +1010,19 @@ function editSectionName(nombreSeccion) {
     };
 }
 
-let selectedSectionId = null;
+let selectedSectionId =null;
+let selectedSubSectionId =null;
 
 function setPanelText(text, sectionId) {
   const panelTexto = document.querySelector('.textoPanelProgramacion');
   panelTexto.textContent = text;
   selectedSectionId = sectionId; // Guarda el ID de la sección seleccionada
+}
+
+function setSubPanelText(textSubseccion, SubsectionId) {
+  const panelTexto2 = document.querySelector('.textoPanelProgramacion2');
+  panelTexto2.textContent = textSubseccion;
+  selectedSubSectionId = SubsectionId; // Guarda el ID de la sección seleccionada
 }
 //Subsecciones:
 
@@ -975,9 +1104,24 @@ function cargarSubsecciones(idSeccion) {
         
         
                 //Edicion de texto
+                //Edicion de texto
                 button.id = `subseccion-${subseccion.id}`; // Asigna un ID único a cada botón
+                let clickTimer;
+                button.addEventListener('click', function() {
+                    clearTimeout(clickTimer);
+                    clickTimer = setTimeout(function() {
+                        // Este código se ejecuta después de un solo clic (no es un doble clic)
+                        mostrarPanel("middle-panelSecundario");
+                        setSubPanelText(subseccion.name,subseccion.id);
+                        
+                    }, 300); // Ajusta el tiempo límite para considerar un doble clic
+                });
+
                 button.addEventListener('dblclick', function() {
+                    clearTimeout(clickTimer);
+                    // Este código se ejecuta cuando se hace doble clic
                     iniciarEdicionSubseccion(this, subseccion.id);
+
                 });
 
                 
@@ -992,6 +1136,8 @@ function cargarSubsecciones(idSeccion) {
                 button.appendChild(eliminarBtn); // Agrega el botón de eliminar al botón de la subsección
 
                 // Eventos y estilos adicionales aquí...
+               
+
 
                 buttonContainer.appendChild(button); // Agrega el botón al contenedor
                 
@@ -1123,6 +1269,80 @@ document.addEventListener('DOMContentLoaded', () => {
         document.addEventListener('DOMContentLoaded', (event) => {
     cargarSeccionesUsuario();
 });
+
+
+//Funcionalidad de notas subsecciones
+
+// Funcionalidad de notas subsecciones
+function guardarNotas() {
+  // Obtener el elemento del campo de entrada por su ID
+  var nombreNotaInput = document.getElementById("nombre_nota");
+
+  // Obtener el valor actual del campo de entrada
+  var nombreNota = nombreNotaInput.value;
+
+  // Obtener el elemento textarea por su ID
+  var notesTextarea = document.getElementById("notes");
+
+  // Obtener el valor actual del textarea
+  var valortextAreaNotes = notesTextarea.value;
+
+  // Obtener el elemento del campo de fecha por su ID
+  var fechaInput = document.getElementById("fecha");
+
+  // Obtener el valor actual del campo de fecha
+  var fechaSeleccionada = fechaInput.value;
+
+  // Obtener el elemento textarea comentarios por su ID
+  var notesTextarea2 = document.getElementById("comentarios");
+
+  // Obtener el valor actual del textarea
+  var textAreaComentarios = notesTextarea2.value;
+
+  if (nombreNota && valortextAreaNotes && fechaSeleccionada && textAreaComentarios && selectedSubSectionId) {
+    console.log('selectedSubSectionId:', selectedSubSectionId);
+    fetch('http://localhost:3000/crearNota', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json', // Corregido aquí
+      },
+      body: JSON.stringify({
+        subsection_id: selectedSubSectionId,
+        nombre: nombreNota,
+        nota: valortextAreaNotes,
+        fecha: fechaSeleccionada,
+        descripcion: textAreaComentarios,
+      }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Respuesta del servidor:', data);
+        if (data.success) {
+          alert('Nota agregada con éxito.');
+            // Limpiar los campos
+            nombreNotaInput.value = "";
+            notesTextarea.value = "";
+            fechaInput.value = "";
+            notesTextarea2.value = "";
+          cargarSubsecciones(selectedSectionId);
+          
+        } else {
+          alert('Hubo un error al agregar la nota: ' + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        alert('Hubo un error al agregar la nota: ' + error.message);
+      });
+  } else {
+    alert('Complete todos los campos y seleccione una subsección.');
+  }
+}
+
+
+
+
+
 
     </script>
 </body>

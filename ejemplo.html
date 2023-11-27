@@ -18,3 +18,56 @@
     </script>
 </body>
 </html>
+
+<div id="middle-panelSecundario" class="panel">
+    <div id="middle-panelProgramacionWeb">
+        <button class="button-regresarSubseccion" onclick="mostrarPanel('middle-panel')"></button>
+        
+        <div class="textoPanelProgramacion2">seleccione subseccion</div>
+        <div class="espacio2"></div>
+        <a href="#" class="Configuracion"></a>
+        <a href="#" class="Seccion1"></a>
+        <a href="#" class="Seccion2"></a>
+
+
+
+        
+    </div>
+    
+    
+    
+    
+    <div class="nombreNota">
+        
+        <label for="nombre de nota:">Nombre:</label>
+        <input type="text" id="nombre_nota" name="nombre" placeholder="Ingresar nombre de la nota" size="1%" maxlength="5%">
+    
+
+    </div>
+    <label for="anotacionesNota:">Definir tarea:</label>
+    <textarea id="notes"></textarea>
+   
+    <div class="FechaAsignacion">
+        <label for="fecha">Fecha vencimiento:</label>
+        <input type="text" id="fecha" name="fecha">
+        
+        <!-- Inicializa flatpickr para el input "fecha" -->
+        <script>
+            flatpickr("#fecha", {
+                minDate: "today", // Permite seleccionar solo fechas a partir de hoy
+            });
+        </script>
+
+
+    </div>
+    
+    <label for="nombre de nota:">Comentarios adicionales:</label>
+    <textarea id="comentarios"></textarea>
+    <div class="button-container2">
+       
+        <button class="button-guardarNota"></button>
+    </div>
+
+
+
+</div>
