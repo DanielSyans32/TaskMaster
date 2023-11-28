@@ -30,10 +30,73 @@
     margin-right:64%;
 }
 
+/*---------------------------------PANEL CHECK LIST------------------------------------------*/
 
 
+        #checklistPanel {
+            width: 100%;
+            height: 50%; /* Ajusta la altura según tus necesidades */
+            padding: 10px; /* Ajusta el padding según tus necesidades */
+            box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+            overflow: auto; /* Agregado para habilitar las barras de desplazamiento si es necesario */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #0ddefa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #addItemContainer {
+            margin-bottom: 10px;
+        }
 
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0; /* Nuevo: Elimina el margen predeterminado de la lista */
+        }
 
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s; /* Agregado para transiciones */
+        }
+
+        li:hover {
+            background-color: #f9f9f9; /* Color de fondo al pasar el mouse */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Sutil sombra al pasar el mouse */
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .deleteButton {
+            background-color: #ff5c5c;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s; /* Agregado para transición de color */
+        }
+
+        .deleteButton:hover {
+            background-color: #d32f2f; /* Cambio de color al pasar el mouse */
+        }
+
+        .clickable {
+            cursor: pointer;
+            transition: color 0.3s; /* Agregado para transición de color */
+        }
+
+        .clickable:hover {
+            color: #2196f3; /* Cambio de color al pasar el mouse */
+        }
+
+/*---------------------------------PANEL CHECK LIST------------------------------------------*/
 
 .Recompensa, .usuarioPerfil {
     background-size: contain;
@@ -564,6 +627,16 @@ margin-left: 55%
         border: none;
         cursor: pointer;
     }
+
+    .button-editarNota {
+        background-image: url('images/guardarNota.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 50px;
+        height: 50px;
+        border: none;
+        cursor: pointer;
+    }
     
     .button-regresarSubseccion {
         
@@ -724,9 +797,11 @@ margin-left: 55%
             <label for="nombre de nota:">Comentarios adicionales:</label>
             <textarea id="comentarios"></textarea>
             <div class="button-container2">
+                <button id="guardarNota" class="button-guardarNota" style="display: none;" onclick="guardarNotas()"></button>
+                <button id="editarNota" class="button-editarNota" style="display: none;" onclick="EditarNota(notaId)"></button>
+                
+
                
-                <button class=></button>
-                <button class="button-guardarNota" onclick=guardarNotas()></button>
             </div>
 
 
@@ -739,14 +814,25 @@ margin-left: 55%
                 <div id="right-panelRecordatorios">
                     <div class="section-Right">Recordatorios</div>
                     <a href="#" class="Campana">Notificaciones</a>
-                    <a href="#" class="Agregar">Agregar</a>
+                    
+                    <button class="Agregar" onclick=addItem()></button>
                 </div>
    
 
            
         
    
-            <textarea id="textarea_Recordatorios" name="recordatorios" class="right-textarea"></textarea>
+                <div id="checklistPanel">
+                    <div id="addItemContainer">
+                        <input type="text" id="newItem" placeholder="Nueva tarea">
+                        
+                    </div>
+                
+                    <ul id="checklist">
+                        <!-- Aquí se agregarán dinámicamente los elementos de la lista -->
+                    </ul>
+                </div>
+
             <div id="right-panelRecordatorios">
                 <div class="TextoListaAmigos">Lista de amigos</div>
                 <a href="#" class="AgregarAmigo">AgregarAm</a>
@@ -758,7 +844,40 @@ margin-left: 55%
     
 
     <script>
+// ---------------------------------------FUNCION DE LA LISTA----------------------------------------
 
+    function addItem() {
+        const newItemInput = document.getElementById("newItem");
+        const newItemText = newItemInput.value.trim();
+
+        if (newItemText !== "") {
+            guardarNotas(1,newItemText);
+            // Limpiar el campo de entrada
+            newItemInput.value = "";
+
+        
+        }
+    }
+
+    function toggleCompleted(checkbox) {
+        const listItem = checkbox.parentElement;
+        listItem.classList.toggle("completed");
+    }
+
+    function deleteItem(idNota) {
+        eliminarNota(idNota);
+        
+    }
+    let notaId=null;
+    function openNota(idNota) {
+    // Aquí puedes agregar la lógica para abrir algo cuando se hace clic en el elemento
+    notaId=idNota;
+    mostrarBotonGuardarOEditar('editarNota');
+    cargarNotasDetalles(idNota);
+}
+
+
+// ---------------------------------------FUNCION DE LA LISTA----------------------------------------
 
 function mostrarPanel(element) {
   // Ocultar todos los paneles
@@ -773,6 +892,27 @@ function mostrarPanel(element) {
     panelParaMostrar.style.display = 'flex'; // o 'flex', 'grid', etc.
   }
 }
+
+    function mostrarBotonGuardarOEditar(element) {
+    
+
+        // Mostrar u ocultar botones según el panel
+        var guardarNotaButton = document.getElementById('guardarNota');
+        var editarNotaButton = document.getElementById('editarNota');
+
+        // Verifica qué panel se está mostrando y ajusta la visibilidad de los botones
+        if (element === 'guardarNota') {
+            guardarNotaButton.style.display = 'block'; // o 'flex', 'grid', etc.
+            editarNotaButton.style.display = 'none';
+        } else if('editarNota') {
+            guardarNotaButton.style.display = 'none';
+            editarNotaButton.style.display = 'block'; // o 'flex', 'grid', etc.
+        }
+        else{
+            alert('boton editar o guardar nota no agregado error');
+
+        }
+    }
 
 
 
@@ -950,6 +1090,7 @@ function cargarSeccionesUsuario() {
 }
 
 
+
 //Actualizar nombre de secciones
 function updateSectionName(nombreSeccion) {
     const sectionId = nombreSeccion.getAttribute('data-id');
@@ -1113,6 +1254,9 @@ function cargarSubsecciones(idSeccion) {
                         // Este código se ejecuta después de un solo clic (no es un doble clic)
                         mostrarPanel("middle-panelSecundario");
                         setSubPanelText(subseccion.name,subseccion.id);
+                        cargarNotas(subseccion.id);
+                        mostrarBotonGuardarOEditar('guardarNota');
+
                         
                     }, 300); // Ajusta el tiempo límite para considerar un doble clic
                 });
@@ -1264,6 +1408,287 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+
+
+
+
+
+//Funcionalidad de notas subsecciones
+
+// Funcionalidad de notas subsecciones
+function guardarNotas(numero, valorNombre) {
+    var nombreNota, nombreNotaInput, notesTextarea, fechaInput, notesTextarea2;
+
+    if (numero === 1) {
+        nombreNota = valorNombre;
+    } else {
+        // Obtener el elemento del campo de entrada por su ID
+        nombreNotaInput = document.getElementById("nombre_nota");
+
+        // Obtener el valor actual del campo de entrada
+        nombreNota = nombreNotaInput.value;
+    }
+
+    // Obtener el elemento textarea por su ID
+    notesTextarea = document.getElementById("notes");
+
+    // Obtener el valor actual del textarea
+    var valortextAreaNotes = notesTextarea.value;
+
+    // Obtener el elemento del campo de fecha por su ID
+    fechaInput = document.getElementById("fecha");
+
+    // Obtener el valor actual del campo de fecha
+    var fechaSeleccionada = fechaInput.value;
+
+    // Obtener el elemento textarea comentarios por su ID
+    notesTextarea2 = document.getElementById("comentarios");
+
+    // Obtener el valor actual del textarea
+    var textAreaComentarios = notesTextarea2.value;
+
+    if (nombreNota && selectedSubSectionId) {
+        console.log('selectedSubSectionId:', selectedSubSectionId);
+        fetch('http://localhost:3000/crearNota', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                subsection_id: selectedSubSectionId,
+                nombre: nombreNota,
+                nota: valortextAreaNotes,
+                fecha: fechaSeleccionada,
+                descripcion: textAreaComentarios,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                if (data.success) {
+                    alert('Nota agregada con éxito.');
+                    // Limpiar los campos
+                    if (numero !== 1) {
+                        nombreNotaInput.value = "";
+                    }
+                    notesTextarea.value = "";
+                    fechaInput.value = "";
+                    notesTextarea2.value = "";
+                    cargarSubsecciones(selectedSectionId);
+                    cargarNotas(selectedSubSectionId);
+                } else {
+                    alert('Hubo un error al agregar la nota: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error al agregar la nota: ' + error.message);
+            });
+    } else {
+        alert('Complete todos los campos y seleccione una subsección.');
+    }
+}
+
+//funcion cargar notas
+  // Función para cargar las notas desde la base de datos
+  function cargarNotas(idSubseccion) {
+            const id_seccion = selectedSubSectionId;
+
+            
+
+            fetch(`http://localhost:3000/obtenerNotas?id_seccion=${id_seccion}`)
+                .then(response => response.json())
+                .then(data => {
+                    const checklist = document.getElementById("checklist");
+                    checklist.innerHTML = ''; // Limpia el contenedor actual
+
+                    // Itera sobre las notas y agrega cada una al panel de checklist
+                    data.notas.forEach(nota => {
+                        agregarNotaAlPanel(nota);
+                        
+                    });
+                })
+                .catch(error => {
+                    console.error('Error al cargar notas:', error);
+                });
+        }
+
+
+        function cargarNotasDetalles(idNota) {
+            const id_nota = idNota;
+
+
+            // Obtener el elemento del campo de entrada por su ID
+            var nombreNotaInput = document.getElementById("nombre_nota");
+
+            // Obtener el valor actual del campo de entrada
+            var nombreNota = nombreNotaInput.value;
+
+            // Obtener el elemento textarea por su ID
+            var notesTextarea = document.getElementById("notes");
+
+            // Obtener el valor actual del textarea
+            var valortextAreaNotes = notesTextarea.value;
+
+            // Obtener el elemento del campo de fecha por su ID
+            var fechaInput = document.getElementById("fecha");
+
+            // Obtener el valor actual del campo de fecha
+            var fechaSeleccionada = fechaInput.value;
+
+            // Obtener el elemento textarea comentarios por su ID
+            var notesTextarea2 = document.getElementById("comentarios");
+
+            // Obtener el valor actual del textarea
+            var textAreaComentarios = notesTextarea2.value;
+
+            fetch(`http://localhost:3000/obtenerNotasDetalles?id_nota=${id_nota}`)
+            .then(response => response.json())
+            .then(data => {
+                // Asegúrate de que hay notas antes de iterar sobre ellas
+                if (data.notas && data.notas.length > 0) {
+                    nombreNotaInput.value ="";
+                    notesTextarea.value = "";
+                    fechaInput.value = "";
+                    notesTextarea2.value ="";
+
+                    const nota = data.notas[0]; // Solo toma la primera nota (suponiendo que solo hay una)
+
+                    nombreNotaInput.value = nota.nombre;
+                    notesTextarea.value = nota.nota;
+                    fechaInput.value = nota.fecha;
+                    notesTextarea2.value = nota.descripcion;
+                    mostrarPanel('middle-panelSecundario');
+                } else {
+                    console.error('No se encontraron notas para el ID especificado.');
+                }
+            })
+            .catch(error => {
+                console.error('Error al cargar notas:', error);
+            });
+        }
+
+        // Función para agregar una nota al panel de checklist
+        function agregarNotaAlPanel(nota) {
+            const checklist = document.getElementById("checklist");
+            const nuevoItem = document.createElement("li");
+            nuevoItem.innerHTML = `
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <span onclick="openNota(${nota.id})" class="clickable">${nota.nombre}</span>
+                <button class="deleteButton" onclick="deleteItem(${nota.id})">Eliminar</button>
+            `;
+            checklist.appendChild(nuevoItem);
+        }
+
+
+        //Eliminar nota
+        function eliminarNota(idNota) {
+    const confirmacion = window.confirm('¿Estás seguro de que deseas eliminar esta nota?');
+
+    if (confirmacion) {
+        fetch(`http://localhost:3000/eliminarNota/${idNota}`, {
+            method: 'DELETE'
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Obtener el elemento de la nota del DOM
+                alert('Nota eliminada correctamente.');
+                // Verificar si el elemento existe antes de intentar eliminarlo
+                cargarNotas(selectedSubSectionId);
+                
+            } else {
+                alert('Error al eliminar la nota.');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+}
+
+//Editar nota
+
+
+function EditarNota(idNota) {
+    alert('Estás editando con el botón editar',idNota);
+
+    // Obtener el elemento del campo de entrada por su ID
+    var nombreNotaInput = document.getElementById("nombre_nota");
+
+    // Obtener el valor actual del campo de entrada
+    var nombreNota = nombreNotaInput.value;
+
+    // Obtener el elemento textarea por su ID
+    var notesTextarea = document.getElementById("notes");
+
+    // Obtener el valor actual del textarea
+    var valortextAreaNotes = notesTextarea.value;
+
+    // Obtener el elemento del campo de fecha por su ID
+    var fechaInput = document.getElementById("fecha");
+
+    // Obtener el valor actual del campo de fecha
+    var fechaSeleccionada = fechaInput.value;
+
+    // Obtener el elemento textarea comentarios por su ID
+    var notesTextarea2 = document.getElementById("comentarios");
+
+    // Obtener el valor actual del textarea
+    var textAreaComentarios = notesTextarea2.value;
+
+    if (nombreNota  && idNota) {
+        fetch(`http://localhost:3000/EditarNota/${idNota}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nombre: nombreNota,
+                nota: valortextAreaNotes,
+                fecha: fechaSeleccionada,
+                descripcion: textAreaComentarios,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Respuesta del servidor:', data);
+                if (data.success) {
+                    alert('Nota editada con éxito.');
+                    // Limpiar los campos
+                    nombreNotaInput.value = "";
+                    notesTextarea.value = "";
+                    fechaInput.value = "";
+                    notesTextarea2.value = "";
+                    cargarSubsecciones(selectedSectionId);
+                    cargarNotas(selectedSubSectionId);
+                    mostrarBotonGuardarOEditar('guardarNota');
+                } else {
+                    alert('Hubo un error al editar la nota: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un error al editar la nota: ' + error.message);
+            });
+    } else {
+        alert('Complete todos los campos y seleccione una subsección.');
+    }
+}
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const addButton = document.querySelector('.button-agregar');
+  if (addButton) {
+    addButton.addEventListener('click', guardarSubseccion);
+  }
+});
+
+
+
+
       
 
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -1271,73 +1696,9 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-//Funcionalidad de notas subsecciones
+   
 
-// Funcionalidad de notas subsecciones
-function guardarNotas() {
-  // Obtener el elemento del campo de entrada por su ID
-  var nombreNotaInput = document.getElementById("nombre_nota");
 
-  // Obtener el valor actual del campo de entrada
-  var nombreNota = nombreNotaInput.value;
-
-  // Obtener el elemento textarea por su ID
-  var notesTextarea = document.getElementById("notes");
-
-  // Obtener el valor actual del textarea
-  var valortextAreaNotes = notesTextarea.value;
-
-  // Obtener el elemento del campo de fecha por su ID
-  var fechaInput = document.getElementById("fecha");
-
-  // Obtener el valor actual del campo de fecha
-  var fechaSeleccionada = fechaInput.value;
-
-  // Obtener el elemento textarea comentarios por su ID
-  var notesTextarea2 = document.getElementById("comentarios");
-
-  // Obtener el valor actual del textarea
-  var textAreaComentarios = notesTextarea2.value;
-
-  if (nombreNota && valortextAreaNotes && fechaSeleccionada && textAreaComentarios && selectedSubSectionId) {
-    console.log('selectedSubSectionId:', selectedSubSectionId);
-    fetch('http://localhost:3000/crearNota', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json', // Corregido aquí
-      },
-      body: JSON.stringify({
-        subsection_id: selectedSubSectionId,
-        nombre: nombreNota,
-        nota: valortextAreaNotes,
-        fecha: fechaSeleccionada,
-        descripcion: textAreaComentarios,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log('Respuesta del servidor:', data);
-        if (data.success) {
-          alert('Nota agregada con éxito.');
-            // Limpiar los campos
-            nombreNotaInput.value = "";
-            notesTextarea.value = "";
-            fechaInput.value = "";
-            notesTextarea2.value = "";
-          cargarSubsecciones(selectedSectionId);
-          
-        } else {
-          alert('Hubo un error al agregar la nota: ' + data.message);
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        alert('Hubo un error al agregar la nota: ' + error.message);
-      });
-  } else {
-    alert('Complete todos los campos y seleccione una subsección.');
-  }
-}
 
 
 

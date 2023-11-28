@@ -234,6 +234,59 @@ app.post('/crearNota', (req, res) => {
     });
   });
   
+//cargar notas
+app.get('/obtenerNotas', (req, res) => {
+    const id_seccion = req.query.id_seccion; // Asegúrate de obtener el parámetro correctamente
+    const query = 'SELECT * FROM notas WHERE subsection_id = ?';
+    db.query(query, [id_seccion], (error, results) => {
+        if (error) {
+            return res.status(500).send({ message: 'Error al obtener subsecciones', error });
+        }
+        res.status(200).send({ notas: results });
+    });
+});
+
+app.get('/obtenerNotasDetalles', (req, res) => {
+    const id_nota = req.query.id_nota; // Asegúrate de obtener el parámetro correctamente
+    const query = 'SELECT * FROM notas WHERE id = ?';
+    db.query(query, [id_nota], (error, results) => {
+        if (error) {
+            return res.status(500).send({ message: 'Error al obtener subsecciones', error });
+        }
+        res.status(200).send({ notas: results });
+    });
+});
+
+// Agrega esta ruta para manejar la eliminación de notas
+app.delete('/eliminarNota/:id_nota', (req, res) => {
+    const idNota = req.params.id_nota; // Obtén el parámetro desde la URL
+    const query = 'DELETE FROM notas WHERE id = ?';
+
+    db.query(query, [idNota], (error, results) => {
+        if (error) {
+            return res.status(500).send({ success: false, message: 'Error al eliminar la nota', error });
+        }
+
+        // Comprueba si se eliminó alguna fila (si existía una nota con ese ID)
+        const success = results.affectedRows > 0;
+
+        res.status(200).send({ success, message: 'Nota eliminada correctamente' });
+    });
+});
+
+app.put('/EditarNota/:idNota', (req, res) => {
+    const idNota = req.params.idNota;
+    const { nombre, nota, fecha, descripcion } = req.body;
+
+    const query = 'UPDATE notas SET nombre = ?, nota = ?, fecha = ?, descripcion = ? WHERE id = ?';
+    db.query(query, [nombre, nota, fecha, descripcion, idNota], (error, results) => {
+        if (error) {
+            console.error('Error SQL:', error.sqlMessage);
+            return res.status(500).send({ success: false, message: 'Error al editar la nota', error: error.sqlMessage });
+        }
+        res.status(200).send({ success: true, message: 'Nota editada con éxito' });
+    });
+});
 
 
 // No olvides configurar el middleware para parsear el cuerpo de las solicitudes en formato JSON
