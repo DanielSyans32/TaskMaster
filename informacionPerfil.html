@@ -183,7 +183,7 @@
     </button>
     
     <img class="logo" src="Images/Alargado blanco.png" alt="Logo de la página">
-    <a href="#" class="delete-button" onclick="confirmDelete();">Eliminar cuenta</a>
+    <a href="#" class="delete-button" onclick="eliminarUsuario();">Eliminar cuenta</a>
   </header>
   <div class="container">
     <div class="section1">
@@ -219,15 +219,7 @@
   </div>
 
   <script>
-    function confirmDelete() {
-        if(confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
-            // Aquí iría el código para eliminar la cuenta, como una solicitud AJAX a tu servidor o base de datos
-            window.location.href = 'Home.html'; // Redirigir al usuario a la página de inicio
-        }
-    }
-
-
-
+  
 
     // Este código iría en tu archivo informacionPerfil.html o en un archivo JavaScript separado que sea incluido en esa página
 document.addEventListener('DOMContentLoaded', function() {
@@ -253,7 +245,33 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
+  //Funcion eliminar usuario
+function eliminarUsuario() {
+  const userId = localStorage.getItem('userId'); // Obtén el ID del usuario de localStorage
 
+  if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
+    // Realiza una solicitud DELETE al endpoint correspondiente en tu servidor
+    fetch(`http://localhost:3000/eliminarUsuario/${userId}`, {
+      method: 'DELETE',
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        alert('Usuario y referencias eliminados con éxito hasta pronto :,C');
+        window.location.href = 'Home.html';
+      } else {
+        alert('Error al eliminar usuario y referencias');
+      }
+    })
+    .catch(error => {
+      console.error('Error en la solicitud:', error);
+      alert('Error al comunicarse con el servidor');
+    });
+  }
+}
+
+
+  
 
 
 

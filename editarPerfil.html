@@ -24,8 +24,6 @@
       max-width: 300px;
       height: auto;
       margin-right: 550px;
-      
-      
     }
     .container {
       max-width: 400px;
@@ -67,34 +65,32 @@
       margin: 0 auto;
     }
     .back-button {
-  background-color: #002aff;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  font-weight: bold;
-  border: none;
-  border-radius: 10px;
-  margin: 1rem;
-  color: #fff; /* Color de texto en estado normal */
-  transition: background-color 0.3s, color 0.3s; /* Transición de color de fondo y texto */
-}
+      background-color: #002aff;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      margin: 1rem;
+      color: #fff;
+      transition: background-color 0.3s, color 0.3s;
+    }
 
-/* Cambiar los colores al pasar el cursor sobre el botón */
-.back-button:hover {
-  background-color: #007bff; /* Color de fondo al pasar el cursor */
-  color: #fff; /* Color de texto al pasar el cursor */
-}
+    .back-button:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
 
-/* Cambiar los colores cuando se hace clic en el botón */
-.back-button:active {
-  background-color: #0044a0; /* Color de fondo al hacer clic */
-  color: #fff; /* Color de texto al hacer clic */
-}
+    .back-button:active {
+      background-color: #0044a0;
+      color: #fff;
+    }
+
     .back-button-image {
-  width: 100px; /* Ajusta el ancho de la imagen */
-  height: px; /* Ajusta la altura de la imagen */
-  margin-right: 5px; /* Ajusta el espaciado a la derecha de la imagen */
-}
-
+      width: 100px;
+      height: px;
+      margin-right: 5px;
+    }
   </style>
 </head>
 <body>
@@ -102,44 +98,88 @@
   <header>
     <button class="back-button">
       <img src="Images/atras.png" alt="Atrás" class="back-button-image" onclick="window.location.href='seccion2.html';">
-
     </button>
     
     <img class="logo" src="Images/Alargado blanco.png" alt="Logo de la página">
-
   </header>
 
   <div class="container">
     <h1>Editar Información del perfil</h1>
     <img class="profile-image" src="Images/FOTO_PERFIL.PNG" alt="Imagen de Perfil">
     <form>
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Escribe tu nombre">
 
-      <label for="correo">Correo:</label>
-      <input type="email" id="correo" name="correo" placeholder="Escribe tu correo">
+        <label for="correo">Correo:</label>
+        <input type="email" id="correo" name="correo" placeholder="Escribe tu correo">
 
-      <label for="contrasena">Contraseña:</label>
-      <input type="password" id="contrasena" name="contrasena" placeholder="Escribe tu contraseña">
+        <label for="contrasenaActual">Contraseña Actual:</label>
+        <input type="password" id="contrasenaActual" name="contrasenaActual" placeholder="Escribe tu contraseña actual">
 
-      <button class="save-button" onclick="guardarCambios()">Guardar cambios</button>
+        <label for="nuevaContrasena">Nueva Contraseña:</label>
+        <input type="password" id="nuevaContrasena" name="nuevaContrasena" placeholder="Escribe tu nueva contraseña">
 
+        <button class="save-button" type="button" onclick="guardarCambios()">Guardar cambios</button>
     </form>
-  </div>
+</div>
+
 <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userId = localStorage.getItem('userId');
 
+        // Obtener información del usuario al cargar la página
+        fetch(`http://localhost:3000/informacionUsuario2/${userId}`)
+            .then(response => response.json())
+            .then(data => {
+                const perfilInformacion = data.perfilInformacion;
 
-function guardarCambios() {
+                // Actualizar campos del formulario con la información del usuario
+                document.getElementById('nombre').value = perfilInformacion.username;
+                document.getElementById('correo').value = perfilInformacion.email;
+            })
+            .catch(error => {
+                console.error('Error al obtener la información del usuario:', error);
+            });
+    });
 
-    alert('Los datos fueron guardados correctamente');
-}
+    function guardarCambios() {
+        const nuevoNombre = document.getElementById('nombre').value;
+        const nuevoCorreo = document.getElementById('correo').value;
+        const contrasenaActual = document.getElementById('contrasenaActual').value;
+        const nuevaContrasena = document.getElementById('nuevaContrasena').value;
 
+        // Validar que los campos no estén vacíos
+        if (!nuevoNombre || !nuevoCorreo || !contrasenaActual || !nuevaContrasena) {
+            alert('Por favor, completa todos los campos.');
+            return;
+        }
 
+        const userId = localStorage.getItem('userId');
 
+        // Enviar los datos al servidor para la edición
+        fetch(`http://localhost:3000/editarUsuario/${userId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                username: nuevoNombre,
+                email: nuevoCorreo,
+                currentPassword: contrasenaActual,
+                newPassword: nuevaContrasena,
+            }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Información del perfil editada con éxito.');
+                } else {
+                    alert('Error al editar información del perfil: ' + data.message);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
 </script>
-  
-
-
 
 </body>
 </html>

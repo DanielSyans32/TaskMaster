@@ -50,6 +50,48 @@ app.post('/register', (req, res) => {
         });
     });
 });
+//Editar usuario
+// Editar información del usuario, incluyendo verificación de contraseña actual
+app.put('/editarUsuario/:id', (req, res) => {
+    const userId = req.params.id;
+    const { username, email, newPassword, currentPassword } = req.body;
+
+    // Verificar la contraseña actual antes de permitir la edición
+    const verifyPasswordQuery = 'SELECT password FROM users WHERE id = ?';
+    db.query(verifyPasswordQuery, [userId], (error, results) => {
+        if (error) {
+            return res.status(500).json({ success: false, message: 'Error al verificar la contraseña actual', error });
+        }
+
+        const storedPassword = results[0].password;
+        // Verificar que la contraseña actual proporcionada coincida con la almacenada
+        if (currentPassword !== storedPassword) {
+            return res.status(401).json({ success: false, message: 'La contraseña actual no es válida' });
+        }
+
+        // Verificar si el nuevo correo ya está en uso por otro usuario
+        const checkEmailQuery = 'SELECT id FROM users WHERE email = ? AND id != ?';
+        db.query(checkEmailQuery, [email, userId], (error, emailResults) => {
+            if (error) {
+                return res.status(500).json({ success: false, message: 'Error al verificar el correo', error });
+            }
+
+            if (emailResults.length > 0) {
+                return res.status(400).json({ success: false, message: 'El correo ya está en uso por otro usuario' });
+            }
+
+            // Ahora puedes proceder a actualizar la información del usuario, incluida la contraseña
+            const updateQuery = 'UPDATE users SET username = ?, email = ?, password = ? WHERE id = ?';
+            db.query(updateQuery, [username, email, newPassword, userId], (error, results) => {
+                if (error) {
+                    return res.status(500).json({ success: false, message: 'Error al editar información del perfil', error });
+                }
+                res.status(200).json({ success: true, message: 'Información del perfil editada con éxito' });
+            });
+        });
+    });
+});
+
 
 // Ruta de inicio de sesión
 // Ruta de inicio de sesión
@@ -114,16 +156,47 @@ app.post('/actualizarNombreSeccion', (req, res) => {
 });
 
 //Eliminar seccion seleccionada
+// Endpoint para eliminar sección y sus subsecciones
 app.delete('/eliminarSeccion/:id', (req, res) => {
-    const { id } = req.params;
-    const query = 'DELETE FROM sections WHERE id = ?';
-    db.query(query, [id], (error, results) => {
-      if (error) {
-        return res.status(500).json({ message: 'Error al eliminar la sección' });
-      }
-      res.json({ message: 'Sección eliminada con éxito' });
+    const sectionId = req.params.id;
+
+    // Inicia una transacción para garantizar la consistencia de los datos
+    db.beginTransaction((err) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Error de transacción', error: err });
+        }
+
+        // Elimina las subsecciones asociadas a la sección
+        db.query('DELETE FROM subsections WHERE section_id = ?', [sectionId], (error, results) => {
+            if (error) {
+                return db.rollback(() => {
+                    res.status(500).json({ success: false, message: 'Error al eliminar subsecciones', error });
+                });
+            }
+
+            // Elimina la sección
+            db.query('DELETE FROM sections WHERE id = ?', [sectionId], (error, results) => {
+                if (error) {
+                    return db.rollback(() => {
+                        res.status(500).json({ success: false, message: 'Error al eliminar sección', error });
+                    });
+                }
+
+                // Commit la transacción si todas las consultas son exitosas
+                db.commit((err) => {
+                    if (err) {
+                        return db.rollback(() => {
+                            res.status(500).json({ success: false, message: 'Error al hacer commit de la transacción', error: err });
+                        });
+                    }
+
+                    res.status(200).json({ success: true, message: 'Sección y subsecciones eliminadas con éxito' });
+                });
+            });
+        });
     });
-  });
+});
+
   
 
 // Añadir rutas similares para subsecciones...
@@ -155,35 +228,48 @@ app.get('/obtenerSubsecciones', (req, res) => {
 });
 
 
+
 // Ejemplo de cómo podrías manejar la eliminación de una subsección
-app.delete('/eliminarSubseccion', (req, res) => {
-    const { id_subseccion } = req.body; // Obtén el ID de la subsección a eliminar
-    const query = 'DELETE FROM subsecciones WHERE id = ?';
-    db.query(query, [id_subseccion], (error, results) => {
-        if (error) {
-            return res.status(500).send({ message: 'Error al eliminar la subsección', error });
-        }
-        if (results.affectedRows > 0) {
-            res.status(200).send({ message: 'Subsección eliminada con éxito' });
-        } else {
-            res.status(404).send({ message: 'Subsección no encontrada' });
-        }
-    });
-});
-//Eliminar subsecciones
 app.delete('/eliminarSubseccion/:id', (req, res) => {
-    const idSubseccion = req.params.id;
-    // Aquí tu lógica para eliminar la subsección de la base de datos...
-    // Por ejemplo:
-    const query = 'DELETE FROM subsections WHERE id = ?';
-    db.query(query, [idSubseccion], (error, results) => {
-        if (error) {
-            res.status(500).send({ success: false, message: 'Error al eliminar la subsección', error });
-        } else {
-            res.send({ success: true, message: 'Subsección eliminada correctamente' });
+    const subsecId = req.params.id;
+
+    // Inicia una transacción para garantizar la consistencia de los datos
+    db.beginTransaction((err) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Error de transacción', error: err });
         }
+
+        // Elimina las notas asociadas a la subsección
+        db.query('DELETE FROM notas WHERE subsection_id = ?', [subsecId], (error, results) => {
+            if (error) {
+                return db.rollback(() => {
+                    res.status(500).json({ success: false, message: 'Error al eliminar notas', error });
+                });
+            }
+
+            // Ahora que las notas se han eliminado, eliminamos la subsección
+            db.query('DELETE FROM subsections WHERE id = ?', [subsecId], (error, results) => {
+                if (error) {
+                    return db.rollback(() => {
+                        res.status(500).json({ success: false, message: 'Error al eliminar subsección', error });
+                    });
+                }
+
+                // Commit la transacción si todas las consultas son exitosas
+                db.commit((err) => {
+                    if (err) {
+                        return db.rollback(() => {
+                            res.status(500).json({ success: false, message: 'Error al hacer commit de la transacción', error: err });
+                        });
+                    }
+
+                    res.status(200).json({ success: true, message: 'Subsección y notas eliminadas con éxito' });
+                });
+            });
+        });
     });
 });
+
 
 //Editar subsecciones
 // En conexionBD_Login.js
@@ -215,6 +301,27 @@ app.get('/informacionUsuario', (req, res) => {
     });
 });
 
+app.get('/informacionUsuario2/:id', (req, res) => {
+    const userId = req.params.id;
+
+    const query = 'SELECT username, email FROM users WHERE id = ?';
+    db.query(query, [userId], (error, results) => {
+        if (error) {
+            return res.status(500).json({ success: false, message: 'Error al obtener la información del usuario', error });
+        }
+
+        if (results.length === 0) {
+            return res.status(404).json({ success: false, message: 'Usuario no encontrado' });
+        }
+
+        const perfilInformacion = {
+            username: results[0].username,
+            email: results[0].email,
+        };
+
+        res.status(200).json({ success: true, perfilInformacion });
+    });
+});
 
 //Ingresar datos de las notas
 // Ruta para crear una nueva sección
@@ -287,6 +394,159 @@ app.put('/EditarNota/:idNota', (req, res) => {
         res.status(200).send({ success: true, message: 'Nota editada con éxito' });
     });
 });
+
+// cargar amigo
+// Endpoint para agregar un amigo
+app.post('/agregarAmigo', (req, res) => {
+    const { idUser, correo } = req.body;
+  
+    // Convertir el correo a mayúsculas
+    const correoMayusculas = correo.toUpperCase();
+  
+    // Buscar el usuario por correo en la base de datos (en mayúsculas)
+    const queryBuscarUsuario = 'SELECT id FROM users WHERE UPPER(email) = ?';
+    db.query(queryBuscarUsuario, [correoMayusculas], (error, resultsUsuario) => {
+      if (error) {
+        return res.status(500).send({ success: false, message: 'Error al buscar el usuario', error });
+      }
+  
+      // Verificar si se encontró un usuario con el correo proporcionado
+      if (resultsUsuario.length > 0) {
+        const friend_id = resultsUsuario[0].id;
+  
+        // Insertar la relación de amistad en la tabla 'friends'
+        const queryAgregarAmigo = 'INSERT INTO friends (user_id, friend_id) VALUES (?, ?)';
+        db.query(queryAgregarAmigo, [idUser, friend_id], (errorAgregarAmigo) => {
+          if (errorAgregarAmigo) {
+            return res.status(500).send({ success: false, message: 'Error al agregar el amigo', error: errorAgregarAmigo });
+          }
+  
+          res.status(200).send({ success: true, message: 'Amigo agregado con éxito' });
+        });
+      } else {
+        res.status(404).send({ success: false, message: 'Correo no encontrado en la base de datos' });
+      }
+    });
+  });
+
+
+  //Cargar amigos
+
+// Endpoint para obtener amigos
+app.get('/obtenerAmigos/:id_user', (req, res) => {
+    const idUser = req.params.id_user;
+
+    // Consulta SQL para obtener amigos del usuario
+    const query = `
+        SELECT users.id, users.email
+        FROM friends
+        INNER JOIN users ON friends.friend_id = users.id
+        WHERE friends.user_id = ?
+    `;
+
+    // Ejecutar la consulta SQL
+    db.query(query, [idUser], (error, results) => {
+        if (error) {
+            console.error('Error al obtener amigos:', error);
+            return res.status(500).json({ error: 'Error al obtener amigos' });
+        }
+
+        const amigos = results.map(amigo => ({ id: amigo.id, email: amigo.email }));
+        res.status(200).json({ amigos });
+    });
+});
+
+//Eliminar amigo de mi lista de amigos
+// Endpoint para eliminar amigo
+app.delete('/eliminarAmigo/:id_user/:friend_id', (req, res) => {
+    const userId = req.params.id_user;
+    const friendId = req.params.friend_id;
+
+    // Asumiendo que tienes una conexión a la base de datos llamada 'db'
+    db.query('DELETE FROM friends WHERE user_id = ? AND friend_id = ?', [userId, friendId], (error, results) => {
+        if (error) {
+            return res.status(500).send({ success: false, message: 'Error al eliminar amigo', error });
+        }
+
+        // Verifica si se eliminó algún registro
+        if (results.affectedRows > 0) {
+            res.status(200).json({ success: true, message: 'Amigo eliminado con éxito' });
+        } else {
+            res.status(404).json({ success: false, message: 'No se encontró la relación de amigo para eliminar' });
+        }
+    });
+});
+
+//Eliminar usuario de la base de datos:
+// Endpoint para eliminar usuario y referencias
+app.delete('/eliminarUsuario/:id', (req, res) => {
+    const userId = req.params.id;
+
+    // Inicia una transacción para garantizar la consistencia de los datos
+    db.beginTransaction((err) => {
+        if (err) {
+            return res.status(500).json({ success: false, message: 'Error de transacción', error: err });
+        }
+
+        // Elimina las notas asociadas al usuario
+        db.query('DELETE FROM notas WHERE subsection_id IN (SELECT id FROM subsections WHERE section_id IN (SELECT id FROM sections WHERE user_id = ?))', [userId], (error, results) => {
+            if (error) {
+                return db.rollback(() => {
+                    res.status(500).json({ success: false, message: 'Error al eliminar notas', error });
+                });
+            }
+
+            // Elimina las secciones asociadas al usuario
+            db.query('DELETE FROM sections WHERE user_id = ?', [userId], (error, results) => {
+                if (error) {
+                    return db.rollback(() => {
+                        res.status(500).json({ success: false, message: 'Error al eliminar secciones', error });
+                    });
+                }
+
+                // Elimina las subsecciones asociadas al usuario
+                db.query('DELETE FROM subsections WHERE section_id IN (SELECT id FROM sections WHERE user_id = ?)', [userId], (error, results) => {
+                    if (error) {
+                        return db.rollback(() => {
+                            res.status(500).json({ success: false, message: 'Error al eliminar subsecciones', error });
+                        });
+                    }
+
+                    // Elimina las relaciones de amigos del usuario
+                    db.query('DELETE FROM friends WHERE user_id = ? OR friend_id = ?', [userId, userId], (error, results) => {
+                        if (error) {
+                            return db.rollback(() => {
+                                res.status(500).json({ success: false, message: 'Error al eliminar relaciones de amigos', error });
+                            });
+                        }
+
+                        // Finalmente, elimina al usuario de la tabla 'users'
+                        db.query('DELETE FROM users WHERE id = ?', [userId], (error, results) => {
+                            if (error) {
+                                return db.rollback(() => {
+                                    res.status(500).json({ success: false, message: 'Error al eliminar usuario', error });
+                                });
+                            }
+
+                            // Commit la transacción si todas las consultas son exitosas
+                            db.commit((err) => {
+                                if (err) {
+                                    return db.rollback(() => {
+                                        res.status(500).json({ success: false, message: 'Error al hacer commit de la transacción', error: err });
+                                    });
+                                }
+
+                                res.status(200).json({ success: true, message: 'Usuario y referencias eliminados con éxito' });
+                            });
+                        });
+                    });
+                });
+            });
+        });
+    });
+});
+
+
 
 
 // No olvides configurar el middleware para parsear el cuerpo de las solicitudes en formato JSON

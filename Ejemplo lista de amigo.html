@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #friendsListPanel {
+            width: 300px;
+            max-width: 100%;
+            max-height: 400px;
+            overflow: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #0ddefa;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #addItemContainer {
+            margin-bottom: 10px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #eee;
+            padding: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        li:hover {
+            background-color: #f9f9f9;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .completed {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .deleteButton {
+            background-color: #ff5c5c;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .deleteButton:hover {
+            background-color: #d32f2f;
+        }
+
+        .clickable {
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .clickable:hover {
+            color: #2196f3;
+        }
+    </style>
+    <title>Friends List Panel</title>
+</head>
+<body>
+
+<div id="friendsListPanel">
+    <div id="addItemContainer">
+        <input type="email" id="newFriendEmail" placeholder="Correo electrónico">
+        <button onclick="addFriend()">Agregar</button>
+    </div>
+
+    <ul id="friendsList">
+        <!-- Aquí se agregarán dinámicamente los elementos de la lista de amigos -->
+    </ul>
+</div>
+
+<script>
+    function addFriend() {
+        const newFriendEmailInput = document.getElementById("newFriendEmail");
+        const newFriendEmail = newFriendEmailInput.value.trim();
+
+        if (isValidEmail(newFriendEmail)) {
+            const friendsList = document.getElementById("friendsList");
+
+            // Crear un nuevo elemento de la lista de amigos
+            const newFriendItem = document.createElement("li");
+            newFriendItem.innerHTML = `
+                <span class="clickable">${newFriendEmail}</span>
+                <button class="deleteButton" onclick="deleteFriend(this)">Eliminar</button>
+            `;
+
+            // Agregar el nuevo elemento a la lista de amigos
+            friendsList.appendChild(newFriendItem);
+
+            // Limpiar el campo de entrada
+            newFriendEmailInput.value = "";
+        } else {
+            alert("Ingrese un correo electrónico válido.");
+        }
+    }
+
+    function deleteFriend(deleteButton) {
+        const friendItem = deleteButton.parentElement;
+        friendItem.remove();
+    }
+
+    function isValidEmail(email) {
+        // Utiliza una expresión regular para verificar el formato del correo electrónico
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+</script>
+
+</body>
+</html>
